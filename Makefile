@@ -1,5 +1,5 @@
 FLAGS=-Wall -Wextra -Werror
-NAME=server\
+NAME=philo\
 
 CSRC=helper.c\
 client.c\
