@@ -1,11 +1,17 @@
 #include <unistd.h>
 #include <stdio.h>
+#include <pthread.h>
+
+void	*test()
+{
+	printf("lol\n");
+	return (0);
+}
 
 int	main()
 {
-	int pid = fork();
-	char *str = (pid == 0 ? "child" : "parent");
-	printf("%s proccess started\n", str);
-	sleep(2);
-	printf("%s proccess ended\n",str);
+	pthread_t t;
+	
+	pthread_create(&t,NULL, &test, NULL);
+	pthread_join(t,NULL);
 }
