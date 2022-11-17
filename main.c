@@ -8,7 +8,7 @@ void	*test()
 	return (0);
 }
 
-int	main()
+int	main(int ac, char **av)
 {
 	pthread_t t;
 	
