@@ -1,11 +1,13 @@
 #include "philo.h"
 
-void	get_timestamp(int tv_start)
+void	get_timestamp(struct timeval start)
 {
-	struct timeval t;
+	struct timeval	t;
+	long long		v;
 
 	gettimeofday(&t,NULL);
-	printf("%d ms since the start of the program\n",(t.tv_usec - tv_start) / 1000);
+	v = ((t.tv_sec * 1000000) + t.tv_usec - (start.tv_sec * 1000000) - start.tv_usec) / 1000;
+	printf("%lld ms since the start of the program\n", v);
 }
 
 // void *get_timestamp(void *i)
@@ -28,7 +30,8 @@ int	main(int ac, char **av)
 	if (ac < 5)
 		return (0);
 	int	n_philo = ft_atoi(av[1]);
-	pthread_t *t = malloc(sizeof(pthread_t) * n_philo * 8000000);
+	pthread_t *t = malloc(sizeof(pthread_t) * n_philo);
+	usleep(000);
 	// while (i < n_philo)
 	// {
 	// 	temp = malloc(sizeof(int));
@@ -42,5 +45,5 @@ int	main(int ac, char **av)
 	// 	pthread_join(t[i],NULL);
 	// 	i++;
 	// }
-	get_timestamp(start.tv_usec);
+	get_timestamp(start);
 }
