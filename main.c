@@ -24,14 +24,13 @@ int	main(int ac, char **av)
 	struct timeval start;
 	gettimeofday(&start,NULL);
 	printf("start time = %ld,%d\n",start.tv_sec, start.tv_usec);
-	int	i = 0;
-	int	*temp;
-	usleep(900);
-	if (ac < 5)
-		return (0);
-	int	n_philo = ft_atoi(av[1]);
-	pthread_t *t = malloc(sizeof(pthread_t) * n_philo);
-	usleep(000);
+	// int	i = 0;
+	// int	*temp;
+	// usleep(900);
+	// if (ac < 5)
+	// 	return (0);
+	// int	n_philo = ft_atoi(av[1]);
+	// pthread_t *t = malloc(sizeof(pthread_t) * n_philo);
 	// while (i < n_philo)
 	// {
 	// 	temp = malloc(sizeof(int));
