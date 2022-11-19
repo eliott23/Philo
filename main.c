@@ -2,7 +2,9 @@
 
 void *get_timestamp()
 {
-	printf("this is the time\n");
+	printf("Hi am a philosopher\n");
+	usleep(70);
+	printf("Hi am dead\n");
 	return(0);
 }
 
@@ -16,7 +18,7 @@ int	main(int ac, char **av)
 	gettimeofday(&start,NULL);
 	while (i < n_philo)
 	{
-		pthread_create(&t[i],NULL, &get_timestamp, i);
+		pthread_create(&t[i],NULL, &get_timestamp, &i);
 		i++;
 	}
 	i = 0;
