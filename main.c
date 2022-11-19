@@ -22,10 +22,12 @@ void	*test()
 int	main(int ac, char **av)
 {
 	pthread_t t;
-	struct timeval lol;
-
-	gettimeofday(&lol,NULL);
-	printf("start time = %ld,%d\n",lol.tv_sec, lol.tv_usec);
+	struct timeval start;
+	struct timeval end;
+	gettimeofday(&start,NULL);
 	pthread_create(&t,NULL, &get_timestamp, NULL);
 	pthread_join(t,NULL);
+	gettimeofday(&end,NULL);
+	printf("start time = %ld,%d\n",start.tv_sec, start.tv_usec);
+	printf("end time = %ld,%d\n",end.tv_sec, end.tv_usec);
 }
