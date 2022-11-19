@@ -5,7 +5,7 @@ void	test(int tv_start)
 	struct timeval t;
 
 	gettimeofday(&t,NULL);
-	printf("%d ms since the start of the program\n",t.tv_usec - tv_start);
+	printf("%ld ms since the start of the program\n",t.tv_sec - tv_start);
 }
 
 void *get_timestamp(void *i)
@@ -25,19 +25,20 @@ int	main(int ac, char **av)
 	int	*temp;
 	int	n_philo = ft_atoi(av[1]);
 	pthread_t *t = malloc(sizeof(pthread_t) * n_philo);
-	test(start.tv_usec);
-	// while (i < n_philo)
-	// {
-	// 	temp = malloc(sizeof(int));
-	// 	*temp = i;
-	// 	pthread_create(&t[i],NULL, &get_timestamp, temp);
-	// 	i++;
-	// }
-	// i = 0;
-	// while (i < n_philo)
-	// {
-	// 	pthread_join(t[i],NULL);
-	// 	i++;
-	// }
-	// printf("start time = %ld,%d\n",start.tv_sec, start.tv_usec / 1000);
+	usleep(100000);
+	test(start.tv_sec);
+	while (i < n_philo)
+	{
+		temp = malloc(sizeof(int));
+		*temp = i;
+		pthread_create(&t[i],NULL, &get_timestamp, temp);
+		i++;
+	}
+	i = 0;
+	while (i < n_philo)
+	{
+		pthread_join(t[i],NULL);
+		i++;
+	}
+	printf("start time = %ld,%d\n",start.tv_sec, start.tv_usec / 1000);
 }
