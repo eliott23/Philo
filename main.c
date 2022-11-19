@@ -23,6 +23,7 @@ int	main(int ac, char **av)
 	while (i < n_philo)
 	{
 		pthread_join(t[i],NULL);
+		i++;
 	}
 	gettimeofday(&end,NULL);
 	printf("start time = %ld,%d\n",start.tv_sec, start.tv_usec);
