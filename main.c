@@ -7,7 +7,7 @@ void	get_timestamp(struct timeval start)
 
 	gettimeofday(&t,NULL);
 	v = ((t.tv_sec * 1000000) + t.tv_usec - (start.tv_sec * 1000000) - start.tv_usec) / 1000;
-	printf("%lld ms since the start of the program\n", v);
+	printf("timestamp %lld\n", v);
 }
 
 // void *get_timestamp(void *i)
