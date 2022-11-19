@@ -2,9 +2,9 @@
 
 void *get_timestamp(void *i)
 {
-	printf("Hi am philosopher number %d\n", *(int *)i);
+	printf("Hi am philosopher number %d\n", (*(int *)i) + 1);
 	usleep(70);
-	printf("Hi am philo %d and am dead\n", *(int *)i);
+	printf("Hi am philo %d and am dead\n", (*(int *)i) + 1);
 	free(i);
 	return(0);
 }
@@ -32,6 +32,6 @@ int	main(int ac, char **av)
 		i++;
 	}
 	gettimeofday(&end,NULL);
-	printf("start time = %ld,%d\n",start.tv_sec, start.tv_usec);
-	printf("end time = %ld,%d\n",end.tv_sec, end.tv_usec);
+	printf("start time = %ld,%d\n",start.tv_sec, start.tv_usec / 1000);
+	printf("end time = %ld,%d\n",end.tv_sec, end.tv_usec / 1000);
 }
