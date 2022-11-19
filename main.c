@@ -1,22 +1,21 @@
 #include "philo.h"
 
-void	test(int tv_start)
+void	get_timestamp(int tv_start)
 {
 	struct timeval t;
 
 	gettimeofday(&t,NULL);
-	printf("end time = %ld,%d\n",t.tv_sec, t.tv_usec);
 	printf("%d ms since the start of the program\n",(t.tv_usec - tv_start) / 1000);
 }
 
-void *get_timestamp(void *i)
-{
-	printf("Hi am philosopher number %d\n", (*(int *)i) + 1);
-	usleep(70);
-	printf("Hi am philo %d and am dead\n", (*(int *)i) + 1);
-	free(i);
-	return(0);
-}
+// void *get_timestamp(void *i)
+// {
+// 	printf("Hi am philosopher number %d\n", (*(int *)i) + 1);
+// 	usleep(70);
+// 	printf("Hi am philo %d and am dead\n", (*(int *)i) + 1);
+// 	free(i);
+// 	return(0);
+// }
 
 int	main(int ac, char **av)
 {
@@ -26,10 +25,10 @@ int	main(int ac, char **av)
 	int	i = 0;
 	int	*temp;
 	usleep(900);
-	// if (ac < 5)
-	// 	return (0);
-	// int	n_philo = ft_atoi(av[1]);
-	// pthread_t *t = malloc(sizeof(pthread_t) * n_philo);
+	if (ac < 5)
+		return (0);
+	int	n_philo = ft_atoi(av[1]);
+	pthread_t *t = malloc(sizeof(pthread_t) * n_philo * 8000000);
 	// while (i < n_philo)
 	// {
 	// 	temp = malloc(sizeof(int));
@@ -43,5 +42,5 @@ int	main(int ac, char **av)
 	// 	pthread_join(t[i],NULL);
 	// 	i++;
 	// }
-	test(start.tv_usec);
+	get_timestamp(start.tv_usec);
 }
