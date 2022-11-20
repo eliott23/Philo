@@ -56,15 +56,15 @@ int	main (int ac, char **av)
 	{
 		inf = malloc(sizeof(t_inf));
 		*inf = temp;
-		inf->i = i;
+		inf->i = i + 1;
 		pthread_create(&t[i],NULL, &test, inf);
 		i++;
 	}
 	i = 0;
-	while (i < n_philo)
+	while (i < temp.n_philo)
 	{
 		pthread_join(t[i],NULL);
 		i++;
 	}
-	printf("%lld\n",get_timestamp(inf->start));
+	printf("%lld\n",get_timestamp(temp.start));
 }
