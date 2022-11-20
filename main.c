@@ -28,7 +28,7 @@ void	*test(void *inf)
 	printf("Hi am philo %d thinking at %lld\n", \
 	l_inf.i, get_timestamp(l_inf.start));
 	pthread_mutex_lock(&(l_inf.mutex[l_inf.i]));
-	l_inf.last_meal[l_inf.i] = get_timestamp(l_inf.start);
+	l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
 	printf("philo %d is eating at %lld\n", \
 	l_inf.i, get_timestamp(l_inf.start));
 	pthread_mutex_unlock(&(l_inf.mutex[l_inf.i]));
