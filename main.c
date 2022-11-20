@@ -27,6 +27,8 @@ void	*test(void *inf)
 	t_inf l_inf = *(t_inf *)inf;
 	printf("%lld %d is thinking\n", \
 	get_timestamp(l_inf.start), l_inf.i);
+	if (l_inf.i == 69)
+		return(0);
 	while (1)
 	{
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.i])); //locked the mutex;
@@ -69,6 +71,12 @@ void	ft_init(t_inf *temp, char **av, int ac)
 		pthread_mutex_init(&(temp->mutex[i]), NULL);
 		i++;
 	}
+	i = 0;
+	while (i < temp->n_philo)
+	{
+		temp->last_meal[i] = 0;
+		i++;
+	}
 	if (ac > 5)
 		temp->n_eat = ft_atoi(av[5]);
 }
@@ -94,10 +102,10 @@ int	main (int ac, char **av)
 		i++;
 	}
 	i = 0;
-	while (i < temp.n_philo)
+	while (t[i])
 	{
-		pthread_join(t[i],NULL);
 		i++;
+		if (i == temp.n_philo)
+			i = 0;
 	}
-	printf("%lld\n",get_timestamp(temp.start));
 }
