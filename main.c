@@ -33,12 +33,16 @@ void	*test(void *inf)
 
 		printf("%lld %d has taken his fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
+		pthread_mutex_lock(&(l_inf.mutex[l_inf.i - 1]));
+		printf("%lld %d has taken the other fork\n", \
+		get_timestamp(l_inf.start), l_inf.i);
 		printf("%lld %d is eating\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		usleep(l_inf.t_eat * 1000);
 		l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
-
-		pthread_mutex_unlock(&(l_inf.mutex[l_inf.i])); //unlock the mutex;
+		pthread_mutex_unlock(&(l_inf.mutex[l_inf.i]));
+		pthread_mutex_unlock(&(l_inf.mutex[l_inf.i - 1])); //unlock the mutex;
+		usleep(l_inf.t_sleep * 1000);
 	}
 	printf("%lld %d died\n", \
 	get_timestamp(l_inf.start), l_inf.i);
@@ -46,7 +50,7 @@ void	*test(void *inf)
 	return(0);
 }
 
-void	ft_init(t_inf *temp, char **av)
+void	ft_init(t_inf *temp, char **av, int ac)
 {
 	int	i;
 
@@ -65,7 +69,8 @@ void	ft_init(t_inf *temp, char **av)
 		pthread_mutex_init(&(temp->mutex[i]), NULL);
 		i++;
 	}
-	// temp->n_eat = ft_atoi(av[5]);
+	if (ac > 5)
+		temp->n_eat = ft_atoi(av[5]);
 }
 
 int	main (int ac, char **av)
@@ -78,7 +83,7 @@ int	main (int ac, char **av)
 	i = 0;
 	if (ac < 5)
 		return (0);
-	ft_init(&temp, av);
+	ft_init(&temp, av, ac);
 	t = malloc(sizeof(pthread_t) * temp.n_philo);
 	while (i < temp.n_philo)
 	{
