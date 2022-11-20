@@ -25,16 +25,15 @@ long long	get_timestamp(struct timeval start)
 void	*test(void *inf)
 {
 	t_inf l_inf = *(t_inf *)inf;
-	printf("%lld %d is thinking\n", \
-	get_timestamp(l_inf.start), l_inf.i);
 	if (l_inf.i == 69)
 		return(0);
 	while (1)
 	{
-		pthread_mutex_lock(&(l_inf.mutex[l_inf.i])); //locked the mutex;
-
-		printf("%lld %d has taken his fork\n", \
+		printf("%lld %d is thinking\n", \
 		get_timestamp(l_inf.start), l_inf.i);
+		pthread_mutex_lock(&(l_inf.mutex[l_inf.i])); //locked the mutex;
+		printf("%lld %d has taken his fork\n", \
+		get_timestamp(l_inf.start), l_inf.i); //locked the second mutex
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.i - 1]));
 		printf("%lld %d has taken the other fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
@@ -42,8 +41,8 @@ void	*test(void *inf)
 		get_timestamp(l_inf.start), l_inf.i);
 		usleep(l_inf.t_eat * 1000);
 		l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
-		pthread_mutex_unlock(&(l_inf.mutex[l_inf.i]));
-		pthread_mutex_unlock(&(l_inf.mutex[l_inf.i - 1])); //unlock the mutex;
+		pthread_mutex_unlock(&(l_inf.mutex[l_inf.i])); //unlcoked the first mutex;
+		pthread_mutex_unlock(&(l_inf.mutex[l_inf.i - 1])); //unlock the second;
 		usleep(l_inf.t_sleep * 1000);
 	}
 	printf("%lld %d died\n", \
