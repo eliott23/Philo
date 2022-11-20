@@ -3,11 +3,13 @@
 typedef struct var{
 	int i;
 	struct timeval start;
-	int	t_sleep;
-	int	t_eat;
-	int	t_die;
-	int	n_philo;
-	int	n_eat;
+	pthread_mutex_t	*mutex;
+	long long		*last_meal;
+	int				t_sleep;
+	int				t_eat;
+	int				t_die;
+	int				n_philo;
+	int				n_eat;
 }t_inf;
 
 long long	get_timestamp(struct timeval start)
@@ -22,7 +24,7 @@ long long	get_timestamp(struct timeval start)
 
 void	*test(void *inf)
 {
-	printf("Hi am philo %d awake at %lld\n", \
+	printf("Hi am philo %d thinking at %lld\n", \
 	((t_inf*)inf)->i, get_timestamp(((t_inf*)inf)->start));
 	printf("philo %d is eating at %lld\n", \
 	((t_inf*)inf)->i, get_timestamp(((t_inf*)inf)->start));
@@ -34,12 +36,21 @@ void	*test(void *inf)
 
 void	ft_init(t_inf *temp, char **av)
 {
+	int	i;
+
+	i = 0;
 	gettimeofday(&(temp->start),NULL);
 	temp->i = 0;
 	temp->n_philo = ft_atoi(av[1]);
 	temp->t_die = ft_atoi(av[2]);
 	temp->t_eat = ft_atoi(av[3]);
 	temp->t_sleep = ft_atoi(av[4]);
+	temp->mutex = malloc(sizeof(pthread_mutex_t) * (temp->n_philo));
+	while (i < temp->n_philo)
+	{
+		pthread_mutex_init(&(temp->mutex[i]), NULL);
+		i++;
+	}
 	// temp->n_eat = ft_atoi(av[5]);
 }
 
@@ -48,12 +59,13 @@ int	main (int ac, char **av)
 	t_inf	*inf;
 	t_inf	temp;
 	int		i;
+	pthread_t *t;
 
 	i = 0;
 	if (ac < 5)
 		return (0);
 	ft_init(&temp, av);
-	pthread_t *t = malloc(sizeof(pthread_t) * temp.n_philo);
+	t = malloc(sizeof(pthread_t) * temp.n_philo);
 	while (i < temp.n_philo)
 	{
 		inf = malloc(sizeof(t_inf));
