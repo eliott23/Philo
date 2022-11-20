@@ -46,6 +46,8 @@ void	ft_init(t_inf *temp, char **av)
 	temp->t_eat = ft_atoi(av[3]);
 	temp->t_sleep = ft_atoi(av[4]);
 	temp->mutex = malloc(sizeof(pthread_mutex_t) * (temp->n_philo));
+	temp->last_meal = malloc(sizeof(int) * (temp->n_philo));
+	memset(temp->last_meal, 0, temp->n_philo * 4);
 	while (i < temp->n_philo)
 	{
 		pthread_mutex_init(&(temp->mutex[i]), NULL);
