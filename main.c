@@ -24,10 +24,13 @@ long long	get_timestamp(struct timeval start)
 
 void	*test(void *inf)
 {
+	t_inf l_inf = *(t_inf *)inf;
 	printf("Hi am philo %d thinking at %lld\n", \
-	((t_inf*)inf)->i, get_timestamp(((t_inf*)inf)->start));
+	((t_inf*)inf)->i, get_timestamp(l_inf->start));
+	// pthread_mutex_lock(l_inf->mutex);
 	printf("philo %d is eating at %lld\n", \
 	((t_inf*)inf)->i, get_timestamp(((t_inf*)inf)->start));
+	// pthread_mutex_unlock(&(l_inf->mutex[(t_inf*)inf)->i]));
 	printf("philo %d is dead at %lld\n", \
 	((t_inf*)inf)->i, get_timestamp(((t_inf*)inf)->start));
 	free(inf);
@@ -46,8 +49,8 @@ void	ft_init(t_inf *temp, char **av)
 	temp->t_eat = ft_atoi(av[3]);
 	temp->t_sleep = ft_atoi(av[4]);
 	temp->mutex = malloc(sizeof(pthread_mutex_t) * (temp->n_philo));
-	temp->last_meal = malloc(sizeof(int) * (temp->n_philo));
-	memset(temp->last_meal, 0, temp->n_philo * 4);
+	temp->last_meal = malloc(sizeof(long long) * (temp->n_philo));
+	i = 0;
 	while (i < temp->n_philo)
 	{
 		pthread_mutex_init(&(temp->mutex[i]), NULL);
