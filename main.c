@@ -22,10 +22,12 @@ long long	get_timestamp(struct timeval start)
 
 void	*test(void *inf)
 {
-	printf("Hi am philo %d\n", ((t_inf*)inf)->i);
-	printf("philo %d is eating \n",((t_inf*)inf)->i);
-	usleep(345 * 1000);
-	printf("philo %d is dead \n",((t_inf*)inf)->i);
+	printf("Hi am philo %d awake at %lld\n", \
+	((t_inf*)inf)->i, get_timestamp(((t_inf*)inf)->start));
+	printf("philo %d is eating at %lld\n", \
+	((t_inf*)inf)->i, get_timestamp(((t_inf*)inf)->start));
+	printf("philo %d is dead at %lld\n", \
+	((t_inf*)inf)->i, get_timestamp(((t_inf*)inf)->start));
 	free(inf);
 	return(0);
 }
