@@ -5,7 +5,8 @@ typedef struct var{
 	struct timeval start;
 	int	t_sleep;
 	int	t_eat;
-}inf;
+	int	n_philo;
+}t_inf;
 
 long long	get_timestamp(struct timeval start)
 {
@@ -29,26 +30,26 @@ void	*test(void *i)
 
 int	main (int ac, char **av)
 {
-	struct timeval start;
-	gettimeofday(&start,NULL);
-	inf	*temp;
+	t_inf	*inf;
+
 	if (ac < 5)
 		return (0);
+	gettimeofday(&(inf->start),NULL);
 	int	n_philo = ft_atoi(av[1]);
-	pthread_t *t = malloc(sizeof(pthread_t) * n_philo);
-	while (i < n_philo)
-	{
-		temp = malloc(sizeof(inf));
-		(*temp).i = i;
-		(*temp).start = start;
-		pthread_create(&t[i],NULL, &test, temp);
-		i++;
-	}
-	i = 0;
-	while (i < n_philo)
-	{
-		pthread_join(t[i],NULL);
-		i++;
-	}
-	get_timestamp(start);
+	// pthread_t *t = malloc(sizeof(pthread_t) * n_philo);
+	// while (i < n_philo)
+	// {
+	// 	temp = malloc(sizeof(t_inf));
+	// 	(*temp).i = i;
+	// 	(*temp).start = start;
+	// 	pthread_create(&t[i],NULL, &test, temp);
+	// 	i++;
+	// }
+	// i = 0;
+	// while (i < n_philo)
+	// {
+	// 	pthread_join(t[i],NULL);
+	// 	i++;
+	// }
+	get_timestamp(inf->start);
 }
