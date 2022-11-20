@@ -22,6 +22,18 @@ long long	get_timestamp(struct timeval start)
 	return (v);
 }
 
+int	is_alive(t_inf inf)
+{
+	struct timeval t;
+	long long		v;
+
+	gettimeofday(&t,NULL);
+	v = get_timestamp(inf.start) - inf.last_meal[inf.i];
+	if (v < inf.t_die)
+		return (1);
+	return (0);
+}
+
 void	*test(void *inf)
 {
 	t_inf l_inf = *(t_inf *)inf;
@@ -33,7 +45,7 @@ void	*test(void *inf)
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.i])); //locked the mutex;
 		printf("%lld %d has taken his fork\n", \
-		get_timestamp(l_inf.start), l_inf.i); //locked the second mutex
+		get_timestamp(l_inf.start), l_inf.i); //locked the second mutex;
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.i - 1]));
 		printf("%lld %d has taken the other fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
