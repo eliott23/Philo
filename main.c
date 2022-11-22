@@ -37,6 +37,8 @@ int	is_alive(t_inf inf)
 void	*test(void *inf)
 {
 	t_inf l_inf = *(t_inf *)inf;
+	if (l_inf.n_philo == 1)
+		return (0); // bad
 	while (1)
 	{
 		printf("%lld %d is thinking\n", \
@@ -47,7 +49,7 @@ void	*test(void *inf)
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.i - 1])); //locked the second mutex
 		printf("%lld %d has taken the %d fork\n", \
 		get_timestamp(l_inf.start), l_inf.i, l_inf.i - 1);
-		printf("%lld %d is eating\n", \vo
+		printf("%lld %d is eating\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		usleep(l_inf.t_eat * 1000);
 		l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
@@ -117,11 +119,17 @@ int	main (int ac, char **av)
 		i++;
 	}
 	i = 0;
-	while (t[i])
+	while (i < temp.n_philo)
 	{
-		// printf("checking\n");
+		pthread_join(t[i],NULL);
 		i++;
-		if (i == temp.n_philo)
-			i = 0;
 	}
+	i = 0;
+	// while (t[i])
+	// {
+	// 	// printf("checking\n");
+	// 	i++;
+	// 	if (i == temp.n_philo)
+	// 		i = 0;
+	// }
 }
