@@ -6,6 +6,7 @@ typedef struct var{
 	int				othr_frk;
 	struct			timeval start;
 	pthread_mutex_t	*mutex;
+	pthread_mutex_t *death_mutex;
 	long long		*last_meal;
 	int				t_sleep;
 	int				t_eat;
