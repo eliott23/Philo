@@ -74,6 +74,7 @@ void	*rout(void *inf)
 	printf("%lld %d died\n", \
 	get_timestamp(l_inf.start), l_inf.i);
 	free(inf);
+	exit(0);
 	return(0);
 }
 
