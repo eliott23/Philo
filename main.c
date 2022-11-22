@@ -1,8 +1,8 @@
 #include "philo.h"
 
 typedef struct var{
-	int i;
-	struct timeval start;
+	int				i;
+	struct			timeval start;
 	pthread_mutex_t	*mutex;
 	long long		*last_meal;
 	int				t_sleep;
@@ -81,6 +81,8 @@ void	ft_init(t_inf *temp, char **av, int ac)
 		pthread_mutex_init(&(temp->mutex[i]), NULL);
 		i++;
 	}
+	printf("testing\n");
+	temp->mutex[1] = NULL;
 	i = 0;
 	while (i < temp->n_philo)
 	{
