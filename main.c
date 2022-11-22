@@ -30,7 +30,11 @@ int	is_alive(t_inf inf)
 	long long		v;
 
 	gettimeofday(&t,NULL);
+	// printf("wala\n");
+		// printf("wala %d\n", inf.i);
+	printf("philo %d checking the last meal %lld\n",inf.i, inf.last_meal[inf.i - 1]);
 	v = get_timestamp(inf.start) - inf.last_meal[inf.i];
+	printf("philo %d check\n",inf.i);
 	if (v < inf.t_die)
 		return (1);
 	return (0);
@@ -46,7 +50,7 @@ void	*rout(void *inf)
 		l_inf.othr_frk = l_inf.n_philo - 1;
 	while (is_alive(l_inf))
 	{
-		printf("%lld %d is thinking\n", \
+		// printf("%lld %d is thinking\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		if (l_inf.n_philo == 1)
 		{
@@ -93,7 +97,7 @@ void	ft_init(t_inf *temp, char **av, int ac)
 	i = 0;
 	while (i < temp->n_philo)
 	{
-		printf("fork %d created\n", i);
+		// printf("fork %d created\n", i);
 		pthread_mutex_init(&(temp->mutex[i]), NULL);
 		i++;
 	}
