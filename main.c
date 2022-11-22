@@ -53,6 +53,8 @@ void	*test(void *inf)
 		l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
 		pthread_mutex_unlock(&(l_inf.mutex[l_inf.i])); //unlcoked the first mutex;
 		pthread_mutex_unlock(&(l_inf.mutex[l_inf.i - 1])); //unlock the second;
+		printf("%lld %d is sleeping\n", \
+		get_timestamp(l_inf.start), l_inf.i);
 		usleep(l_inf.t_sleep * 1000);
 	}
 	printf("%lld %d died\n", \
@@ -82,7 +84,7 @@ void	ft_init(t_inf *temp, char **av, int ac)
 		i++;
 	}
 	// printf("testing\n");
-	if (temp->mutex[i])
+	// if (temp->mutex[i])
 		printf("hah\n");
 	i = 0;
 	while (i < temp->n_philo)
