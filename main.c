@@ -37,8 +37,8 @@ int	is_alive(t_inf inf)
 void	*test(void *inf)
 {
 	t_inf l_inf = *(t_inf *)inf;
-	if (l_inf.i == 69)
-		return(0);
+	if (l_inf.i == 1)
+		return (0);
 	while (1)
 	{
 		printf("%lld %d is thinking\n", \
@@ -115,6 +115,7 @@ int	main (int ac, char **av)
 	i = 0;
 	while (t[i])
 	{
+		printf("checking\n");
 		i++;
 		if (i == temp.n_philo)
 			i = 0;
