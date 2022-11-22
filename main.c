@@ -40,7 +40,7 @@ void	*test(void *inf)
 {
 	t_inf l_inf = *(t_inf *)inf;
 	l_inf.my_frk = l_inf.i - 1;
-	if (l_inf.i > 2)
+	if (l_inf.i >= 2)
 		l_inf.othr_frk = l_inf.i - 2;
 	else
 		l_inf.othr_frk = l_inf.n_philo - 1;
@@ -92,7 +92,7 @@ void	ft_init(t_inf *temp, char **av, int ac)
 	temp->last_meal = malloc(sizeof(long long) * (temp->n_philo));
 	i = 0;
 	while (i < temp->n_philo)
-	{ 
+	{
 		printf("fork %d created\n", i);
 		pthread_mutex_init(&(temp->mutex[i]), NULL);
 		i++;
