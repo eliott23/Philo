@@ -12,8 +12,8 @@ int	main(int ac, char **av)
 {
 	int	n_philo = ft_atoi(av[1]);
 	pthread_mutex_t *mutex = malloc(sizeof(pthread_mutex_t) * n_philo);
-	pthread_mutex_init(&mutex[0], NULL);
-	pthread_mutex_lock(mutex);
+	pthread_mutex_init(mutex, NULL);
+	pthread_mutex_lock(&mutex[1000]);
 	int	i = 0;
 	pthread_t	*t = malloc(sizeof(pthread_t) * n_philo);
 	while (i < n_philo)
