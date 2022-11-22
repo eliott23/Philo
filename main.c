@@ -56,7 +56,7 @@ void	*test(void *inf)
 			return (0);
 		}
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.my_frk])); //locked the mutex;
-		printf("%lld %d has taken the his fork\n", \
+		printf("%lld %d has taken his fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.othr_frk])); //locked the second mutex
 		printf("%lld %d has taken the other fork\n", \
