@@ -37,18 +37,16 @@ int	is_alive(t_inf inf)
 void	*test(void *inf)
 {
 	t_inf l_inf = *(t_inf *)inf;
-	if (l_inf.i == 1)
-		return (0);
 	while (1)
 	{
 		printf("%lld %d is thinking\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.i])); //locked the mutex;
-		printf("%lld %d has taken his fork\n", \
-		get_timestamp(l_inf.start), l_inf.i); //locked the second mutex;
-		pthread_mutex_lock(&(l_inf.mutex[l_inf.i - 1]));
-		printf("%lld %d has taken the other fork\n", \
-		get_timestamp(l_inf.start), l_inf.i);
+		printf("%lld %d has taken the %d fork\n", \
+		get_timestamp(l_inf.start), l_inf.i, l_inf.i);
+		pthread_mutex_lock(&(l_inf.mutex[l_inf.i - 1])); //locked the second mutex
+		printf("%lld %d has taken the %d fork\n", \
+		get_timestamp(l_inf.start), l_inf.i, l_inf.i - 1);
 		printf("%lld %d is eating\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		usleep(l_inf.t_eat * 1000);
@@ -78,7 +76,8 @@ void	ft_init(t_inf *temp, char **av, int ac)
 	temp->last_meal = malloc(sizeof(long long) * (temp->n_philo));
 	i = 0;
 	while (i < temp->n_philo)
-	{
+	{ 
+		printf("fork %d created\n", i);
 		pthread_mutex_init(&(temp->mutex[i]), NULL);
 		i++;
 	}
@@ -115,7 +114,7 @@ int	main (int ac, char **av)
 	i = 0;
 	while (t[i])
 	{
-		printf("checking\n");
+		// printf("checking\n");
 		i++;
 		if (i == temp.n_philo)
 			i = 0;
