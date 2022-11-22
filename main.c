@@ -47,7 +47,7 @@ void	*test(void *inf)
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.i - 1])); //locked the second mutex
 		printf("%lld %d has taken the %d fork\n", \
 		get_timestamp(l_inf.start), l_inf.i, l_inf.i - 1);
-		printf("%lld %d is eating\n", \
+		printf("%lld %d is eating\n", \vo
 		get_timestamp(l_inf.start), l_inf.i);
 		usleep(l_inf.t_eat * 1000);
 		l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
