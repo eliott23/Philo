@@ -81,8 +81,9 @@ void	ft_init(t_inf *temp, char **av, int ac)
 		pthread_mutex_init(&(temp->mutex[i]), NULL);
 		i++;
 	}
-	printf("testing\n");
-	temp->mutex[1] = NULL;
+	// printf("testing\n");
+	if (temp->mutex[i])
+		printf("hah\n");
 	i = 0;
 	while (i < temp->n_philo)
 	{
