@@ -2,6 +2,8 @@
 
 typedef struct var{
 	int				i;
+	int				my_frk;
+	int				othr_frk;
 	struct			timeval start;
 	pthread_mutex_t	*mutex;
 	long long		*last_meal;
@@ -10,7 +12,6 @@ typedef struct var{
 	int				t_die;
 	int				n_philo;
 	int				n_eat;
-
 }t_inf;
 
 long long	get_timestamp(struct timeval start)
@@ -38,6 +39,11 @@ int	is_alive(t_inf inf)
 void	*test(void *inf)
 {
 	t_inf l_inf = *(t_inf *)inf;
+	l_inf.my_frk = l_inf.i - 1;
+	if (l_inf.i > 2)
+		l_inf.othr_frk = l_inf.i - 2;
+	else
+		l_inf.othr_frk = l_inf.n_philo - 1;
 	while (1)
 	{
 		printf("%lld %d is thinking\n", \
@@ -49,18 +55,18 @@ void	*test(void *inf)
 			get_timestamp(l_inf.start), l_inf.i);
 			return (0);
 		}
-		pthread_mutex_lock(&(l_inf.mutex[l_inf.i - 1])); //locked the mutex;
-		printf("%lld %d has taken the %d fork\n", \
-		get_timestamp(l_inf.start), l_inf.i, l_inf.i);
-		pthread_mutex_lock(&(l_inf.mutex[l_inf.i])); //locked the second mutex
-		printf("%lld %d has taken the %d fork\n", \
-		get_timestamp(l_inf.start), l_inf.i, l_inf.i - 1);
+		pthread_mutex_lock(&(l_inf.mutex[l_inf.my_frk])); //locked the mutex;
+		printf("%lld %d has taken the his fork\n", \
+		get_timestamp(l_inf.start), l_inf.i);
+		pthread_mutex_lock(&(l_inf.mutex[l_inf.othr_frk])); //locked the second mutex
+		printf("%lld %d has taken the other fork\n", \
+		get_timestamp(l_inf.start), l_inf.i);
 		printf("%lld %d is eating\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		usleep(l_inf.t_eat * 1000);
 		l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
-		pthread_mutex_unlock(&(l_inf.mutex[l_inf.i])); //unlcoked the first mutex;
-		pthread_mutex_unlock(&(l_inf.mutex[l_inf.i - 1])); //unlock the second;
+		pthread_mutex_unlock(&(l_inf.mutex[l_inf.my_frk])); //unlcoked the first mutex;
+		pthread_mutex_unlock(&(l_inf.mutex[l_inf.othr_frk])); //unlock the second;
 		printf("%lld %d is sleeping\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		usleep(l_inf.t_sleep * 1000);
