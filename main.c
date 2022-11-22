@@ -30,11 +30,7 @@ int	is_alive(t_inf inf)
 	long long		v;
 
 	gettimeofday(&t,NULL);
-	// printf("wala\n");
-		// printf("wala %d\n", inf.i);
-	printf("philo %d checking the last meal %lld\n",inf.i, inf.last_meal[inf.i - 1]);
-	v = get_timestamp(inf.start) - inf.last_meal[inf.i];
-	printf("philo %d check\n",inf.i);
+	v = get_timestamp(inf.start) - inf.last_meal[inf.i - 1];
 	if (v < inf.t_die)
 		return (1);
 	return (0);
@@ -50,7 +46,7 @@ void	*rout(void *inf)
 		l_inf.othr_frk = l_inf.n_philo - 1;
 	while (is_alive(l_inf))
 	{
-		// printf("%lld %d is thinking\n", \
+		printf("%lld %d is thinking\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		if (l_inf.n_philo == 1)
 		{
@@ -60,18 +56,18 @@ void	*rout(void *inf)
 			return (0);
 		}
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.othr_frk])); //locked the second mutex
-		// printf("%lld %d has taken the other fork\n", \
+		printf("%lld %d has taken the other fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.my_frk])); //locked the mutex;
-		// printf("%lld %d has taken his fork\n", \
+		printf("%lld %d has taken his fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
-		// printf("%lld %d is eating\n", \
+		printf("%lld %d is eating\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		usleep(l_inf.t_eat * 1000);
 		l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
 		pthread_mutex_unlock(&(l_inf.mutex[l_inf.my_frk])); //unlcoked the first mutex;
 		pthread_mutex_unlock(&(l_inf.mutex[l_inf.othr_frk])); //unlock the second;
-		// printf("%lld %d is sleeping\n", \
+		printf("%lld %d is sleeping\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		usleep(l_inf.t_sleep * 1000);
 	}
@@ -97,7 +93,7 @@ void	ft_init(t_inf *temp, char **av, int ac)
 	i = 0;
 	while (i < temp->n_philo)
 	{
-		// printf("fork %d created\n", i);
+		printf("fork %d created\n", i);
 		pthread_mutex_init(&(temp->mutex[i]), NULL);
 		i++;
 	}
