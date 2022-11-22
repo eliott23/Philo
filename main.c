@@ -49,10 +49,10 @@ void	*test(void *inf)
 			get_timestamp(l_inf.start), l_inf.i);
 			return (0);
 		}
-		pthread_mutex_lock(&(l_inf.mutex[l_inf.i])); //locked the mutex;
+		pthread_mutex_lock(&(l_inf.mutex[l_inf.i - 1])); //locked the mutex;
 		printf("%lld %d has taken the %d fork\n", \
 		get_timestamp(l_inf.start), l_inf.i, l_inf.i);
-		pthread_mutex_lock(&(l_inf.mutex[l_inf.i - 1])); //locked the second mutex
+		pthread_mutex_lock(&(l_inf.mutex[l_inf.i])); //locked the second mutex
 		printf("%lld %d has taken the %d fork\n", \
 		get_timestamp(l_inf.start), l_inf.i, l_inf.i - 1);
 		printf("%lld %d is eating\n", \
