@@ -21,5 +21,5 @@ int	main(int ac, char **av)
 		pthread_create(&t[i],NULL, &test, &mutex);
 		i++;
 	}
-	pthread_join(t[i],NULL);
+	pthread_join(t[0],NULL);
 }
