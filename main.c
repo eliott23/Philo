@@ -10,6 +10,7 @@ typedef struct var{
 	int				t_die;
 	int				n_philo;
 	int				n_eat;
+
 }t_inf;
 
 long long	get_timestamp(struct timeval start)
@@ -37,12 +38,17 @@ int	is_alive(t_inf inf)
 void	*test(void *inf)
 {
 	t_inf l_inf = *(t_inf *)inf;
-	if (l_inf.n_philo == 1)
-		return (0); // bad
 	while (1)
 	{
 		printf("%lld %d is thinking\n", \
 		get_timestamp(l_inf.start), l_inf.i);
+		if (l_inf.n_philo == 1)
+		{
+			usleep(l_inf.t_die * 1000);
+			printf("%lld %d died\n", \
+			get_timestamp(l_inf.start), l_inf.i);
+			return (0);
+		}
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.i])); //locked the mutex;
 		printf("%lld %d has taken the %d fork\n", \
 		get_timestamp(l_inf.start), l_inf.i, l_inf.i);
