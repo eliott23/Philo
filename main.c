@@ -56,7 +56,7 @@ void	*rout(void *inf)
 			get_timestamp(l_inf.start), l_inf.i);
 			return (0);
 		}
-		pthread_mutex_lock(&(l_inf.mutex[l_inf.othr_frk])); //locked the second mutex
+		pthread_mutex_lock(&(l_inf.mutex[l_inf.othr_frk])); //locked the mutex
 		printf("%lld %d has taken the other fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.my_frk])); //locked the mutex;
@@ -66,8 +66,8 @@ void	*rout(void *inf)
 		get_timestamp(l_inf.start), l_inf.i);
 		usleep(l_inf.t_eat * 1000);
 		l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
-		pthread_mutex_unlock(&(l_inf.mutex[l_inf.my_frk])); //unlcoked the first mutex;
-		pthread_mutex_unlock(&(l_inf.mutex[l_inf.othr_frk])); //unlock the second;
+		pthread_mutex_unlock(&(l_inf.mutex[l_inf.my_frk])); //unlcoked the mutex;
+		pthread_mutex_unlock(&(l_inf.mutex[l_inf.othr_frk])); //unlock the mutex;
 		printf("%lld %d is sleeping\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		usleep(l_inf.t_sleep * 1000);
