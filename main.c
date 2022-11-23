@@ -40,7 +40,6 @@ int	is_alive(t_inf inf)
 		printf("checking for %d %lld < %d\n", inf.i, v, inf.t_die);
 		return (1);
 	}
-	exit(0);
 	return (0);
 }
 
