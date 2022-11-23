@@ -33,13 +33,14 @@ int	is_alive(t_inf inf)
 
 	gettimeofday(&t,NULL);
 	v = get_timestamp(inf.start) - inf.last_meal[inf.i - 1];
-	if (!(*(inf.d_flag)))
-		*(inf.d_flag) = inf.i;
+	// if (!(*(inf.d_flag)))
+	// 	*(inf.d_flag) = inf.i; // to remember the first thread who died
 	if (v < inf.t_die)
 	{
 		printf("checking for %d %lld < %d\n", inf.i, v, inf.t_die);
 		return (1);
 	}
+	exit(0);
 	return (0);
 }
 
@@ -96,6 +97,8 @@ void	*rout(void *inf)
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		usleep(l_inf.t_sleep * 1000);
+						if (l_inf.i == 1) //for debugging
+		printf("ha2 %lld\n",get_timestamp(l_inf.start) - l_inf.last_meal[l_inf.i - 1]);
 	}
 	free(inf);
 	exit(0);
