@@ -33,8 +33,8 @@ int	is_alive(t_inf inf)
 
 	gettimeofday(&t,NULL);
 	v = get_timestamp(inf.start) - inf.last_meal[inf.i - 1];
-	// if (!(*(inf.d_flag)))
-	// 	*(inf.d_flag) = inf.i; // to remember the first thread who died
+	if (!(*(inf.d_flag)))
+		*(inf.d_flag) = inf.i; // to remember the first thread who died
 	if (v < inf.t_die)
 	{
 		printf("checking for %d %lld < %d\n", inf.i, v, inf.t_die);
@@ -99,7 +99,7 @@ void	*rout(void *inf)
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		usleep(l_inf.t_sleep * 1000);
-						if (l_inf.i == 2) //for debugging
+						// if (l_inf.i == 2) //for debugging
 		printf("ha2 %lld\n",get_timestamp(l_inf.start) - l_inf.last_meal[l_inf.i - 1]);
 	}
 	free(inf);
@@ -121,6 +121,8 @@ void	ft_init(t_inf *temp, char **av, int ac)
 	temp->mutex = malloc(sizeof(pthread_mutex_t) * (temp->n_philo));
 	temp->death_mutex = malloc(sizeof(pthread_mutex_t) * (temp->n_philo));
 	temp->last_meal = malloc(sizeof(long long) * (temp->n_philo));
+	temp->d_flag = malloc(sizeof(int));
+	*(temp->d_flag) = 0;
 	i = 0;
 	while (i < temp->n_philo)
 	{
