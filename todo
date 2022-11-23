@@ -1,4 +1,2 @@
 a mutex lock to sync the dying thread and the other active threads
 + check for the death at the right times;
-a little worried about the orther of the actions issue
-
