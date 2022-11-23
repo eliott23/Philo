@@ -54,7 +54,6 @@ void	*rout(void *inf)
 	while (is_alive(l_inf))
 	{
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
-						// if (l_inf.i == 2) //for debugging
 		printf("%lld %d is thinking\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
@@ -66,24 +65,33 @@ void	*rout(void *inf)
 			return (0);
 		}
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.othr_frk])); //locked the mutex
-		if (!is_alive(l_inf))
-			exit(0);
+				if (!is_alive(l_inf))
+		{
+			printf("%d died!\n", l_inf.i);
+			// exit(0);
+			return (0);
+		}
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
-						// if (l_inf.i == 2) //for debugging
 		printf("%lld %d has taken the other fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.my_frk])); //locked the mutex;
-		if (!is_alive(l_inf))
-			exit(0);
+				if (!is_alive(l_inf))
+		{
+			printf("%d died!\n", l_inf.i);
+			// exit(0);
+			return (0);
+		}
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
-				// if (l_inf.i == 2) //for debugging
 		printf("%lld %d has taken his fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
-				// if (l_inf.i == 2) //for debugging
 		if (!is_alive(l_inf))
-			exit(0);
+		{
+			printf("%d died!\n", l_inf.i);
+			// exit(0);
+			return (0);
+		}
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		printf("%lld %d is eating\n", \
 		get_timestamp(l_inf.start), l_inf.i);
@@ -101,8 +109,9 @@ void	*rout(void *inf)
 						// if (l_inf.i == 2) //for debugging
 		printf("ha2 %lld\n",get_timestamp(l_inf.start) - l_inf.last_meal[l_inf.i - 1]);
 	}
+	printf("%d died!\n", l_inf.i);
 	free(inf);
-	exit(0);
+	// exit(0);
 	return(0);
 }
 
@@ -163,15 +172,11 @@ int	main (int ac, char **av)
 	i = 0;
 	while (i < temp.n_philo)
 	{
+		printf("waiting for thread %d\n", i+1);
 		pthread_join(t[i],NULL);
 		i++;
 	}
 	// i = 0;
-	// while (t[i])
-	// {
-	// 	// printf("checking\n");
-	// 	i++;
-	// 	if (i == temp.n_philo)
-	// 		i = 0;
-	// }
+	// while (*(temp.d_flag) == 0)
+
 }
