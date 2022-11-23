@@ -92,7 +92,7 @@ void	*rout(void *inf)
 		pthread_mutex_unlock(&(l_inf.mutex[l_inf.my_frk])); //unlcoked the mutex;
 		pthread_mutex_unlock(&(l_inf.mutex[l_inf.othr_frk])); //unlock the mutex;
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
-		if (l_inf.i == 1)											//for debugging
+		if (l_inf.i == 2)											//for debugging
 		printf("%lld %d is sleeping\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
