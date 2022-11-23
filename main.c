@@ -1,6 +1,7 @@
 #include "philo.h"
 
 typedef struct var{
+	int				*d_flag;
 	int				i;
 	int				my_frk;
 	int				othr_frk;
@@ -32,8 +33,13 @@ int	is_alive(t_inf inf)
 
 	gettimeofday(&t,NULL);
 	v = get_timestamp(inf.start) - inf.last_meal[inf.i - 1];
+	if (!(*(inf.d_flag)))
+		*(inf.d_flag) = inf.i;
 	if (v < inf.t_die)
+	{
+		printf("checking for %d %lld < %d\n", inf.i, v, inf.t_die);
 		return (1);
+	}
 	return (0);
 }
 
@@ -47,8 +53,10 @@ void	*rout(void *inf)
 		l_inf.othr_frk = l_inf.n_philo - 1;
 	while (is_alive(l_inf))
 	{
+		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		printf("%lld %d is thinking\n", \
 		get_timestamp(l_inf.start), l_inf.i);
+		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		if (l_inf.n_philo == 1)
 		{
 			usleep(l_inf.t_die * 1000);
@@ -56,24 +64,34 @@ void	*rout(void *inf)
 			get_timestamp(l_inf.start), l_inf.i);
 			return (0);
 		}
+		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.othr_frk])); //locked the mutex
+		// if (!is_alive(l_inf))
+		// 	exit(0);
 		printf("%lld %d has taken the other fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
+		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
+		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.my_frk])); //locked the mutex;
+		// if (!is_alive(l_inf))
+		// 	exit(0);
 		printf("%lld %d has taken his fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
+		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
+		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		printf("%lld %d is eating\n", \
 		get_timestamp(l_inf.start), l_inf.i);
+		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		usleep(l_inf.t_eat * 1000);
 		l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
 		pthread_mutex_unlock(&(l_inf.mutex[l_inf.my_frk])); //unlcoked the mutex;
 		pthread_mutex_unlock(&(l_inf.mutex[l_inf.othr_frk])); //unlock the mutex;
+		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		printf("%lld %d is sleeping\n", \
 		get_timestamp(l_inf.start), l_inf.i);
+		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		usleep(l_inf.t_sleep * 1000);
 	}
-	printf("%lld %d died\n", \
-	get_timestamp(l_inf.start), l_inf.i);
 	free(inf);
 	exit(0);
 	return(0);
@@ -91,16 +109,16 @@ void	ft_init(t_inf *temp, char **av, int ac)
 	temp->t_eat = ft_atoi(av[3]);
 	temp->t_sleep = ft_atoi(av[4]);
 	temp->mutex = malloc(sizeof(pthread_mutex_t) * (temp->n_philo));
+	temp->death_mutex = malloc(sizeof(pthread_mutex_t) * (temp->n_philo));
 	temp->last_meal = malloc(sizeof(long long) * (temp->n_philo));
 	i = 0;
 	while (i < temp->n_philo)
 	{
 		printf("fork %d created\n", i);
 		pthread_mutex_init(&(temp->mutex[i]), NULL);
+		pthread_mutex_init(&(temp->death_mutex[i]), NULL);
 		i++;
 	}
-	// printf("testing\n");
-	// if (temp->mutex[i])
 	i = 0;
 	while (i < temp->n_philo)
 	{
@@ -137,7 +155,7 @@ int	main (int ac, char **av)
 		pthread_join(t[i],NULL);
 		i++;
 	}
-	i = 0;
+	// i = 0;
 	// while (t[i])
 	// {
 	// 	// printf("checking\n");
