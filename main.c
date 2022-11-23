@@ -172,5 +172,6 @@ int	main (int ac, char **av)
 		pthread_mutex_lock(&(temp.death_mutex[temp.n_philo - 1]));
 		(temp.n_philo)--;
 	}
-	printf("died\n");
+	printf("%lld %d died\n", \
+		get_timestamp(temp.start), *(temp.d_flag));
 }
