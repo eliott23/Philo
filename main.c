@@ -169,7 +169,7 @@ int	main (int ac, char **av)
 	while (*(temp.d_flag) == 0);
 	while (temp.n_philo)
 	{
-		pthread_mutex_lock(&(temp.d_mutex[n_philo - 1]));
+		pthread_mutex_lock(&(temp.death_mutex[temp.n_philo - 1]));
 		(temp.n_philo)--;
 	}
 	printf("died\n");
