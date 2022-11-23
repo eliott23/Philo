@@ -166,14 +166,11 @@ int	main (int ac, char **av)
 		i++;
 	}
 	i = 0;
-	// while (i < temp.n_philo)
-	// {
-	// 	printf("waiting for thread %d\n", i+1);
-	// 	pthread_join(t[i],NULL);
-	// 	i++;
-	// }
-	i = 0;
 	while (*(temp.d_flag) == 0);
+	while (temp.n_philo)
+	{
+		pthread_mutex_lock(&(temp.d_mutex[n_philo - 1]));
+		(temp.n_philo)--;
+	}
 	printf("died\n");
-
 }
