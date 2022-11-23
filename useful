@@ -1,0 +1,1 @@
+compf main.c ft_atoi.c && ./a.out 2 260 255 100 
