@@ -33,13 +33,12 @@ int	is_alive(t_inf inf)
 
 	gettimeofday(&t,NULL);
 	v = get_timestamp(inf.start) - inf.last_meal[inf.i - 1];
-	printf("here %d\n", inf.i);
 	if (v < inf.t_die)
 	{
 		printf("checking for %d %lld < %d\n", inf.i, v, inf.t_die);
 		return (1);
 	}
-		if (!(*(inf.d_flag)))
+	if (!(*(inf.d_flag)))
 		*(inf.d_flag) = inf.i; // to remember the first thread who died
 	return (0);
 }
