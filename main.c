@@ -66,29 +66,20 @@ void	*rout(void *inf)
 		}
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.othr_frk])); //locked the mutex
 				if (!is_alive(l_inf))
-		{
-			// exit(0);
 			return (0);
-		}
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		printf("%lld %d has taken the other fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.my_frk])); //locked the mutex;
 		if (!is_alive(l_inf))
-		{
-			// exit(0);
 			return (0);
-		}
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		printf("%lld %d has taken his fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		if (!is_alive(l_inf))
-		{
-			// exit(0);
 			return (0);
-		}
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		printf("%lld %d is eating\n", \
 		get_timestamp(l_inf.start), l_inf.i);
@@ -98,16 +89,13 @@ void	*rout(void *inf)
 		pthread_mutex_unlock(&(l_inf.mutex[l_inf.my_frk])); //unlocked the mutex;
 		pthread_mutex_unlock(&(l_inf.mutex[l_inf.othr_frk])); //unlock the mutex;
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
-		// if (l_inf.i == 2)		//for debugging
 		printf("%lld %d is sleeping\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		usleep(l_inf.t_sleep * 1000);
-						// if (l_inf.i == 2) //for debugging
-		printf("ha2 %lld\n",get_timestamp(l_inf.start) - l_inf.last_meal[l_inf.i - 1]);
+		// printf("ha2 %lld\n",get_timestamp(l_inf.start) - l_inf.last_meal[l_inf.i - 1]);
 	}
 	free(inf);
-	// exit(0);
 	return(0);
 }
 
@@ -130,7 +118,6 @@ void	ft_init(t_inf *temp, char **av, int ac)
 	i = 0;
 	while (i < temp->n_philo)
 	{
-		printf("fork %d created\n", i);
 		pthread_mutex_init(&(temp->mutex[i]), NULL);
 		pthread_mutex_init(&(temp->death_mutex[i]), NULL);
 		i++;
