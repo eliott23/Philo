@@ -60,12 +60,11 @@ void	*rout(void *inf)
 		if (l_inf.n_philo == 1)
 		{
 			usleep(l_inf.t_die * 1000);
-			printf("%lld %d died\n", \
-			get_timestamp(l_inf.start), l_inf.i);
+			*(l_inf.d_flag) = l_inf.i;
 			return (0);
 		}
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.othr_frk])); //locked the mutex
-				if (!is_alive(l_inf))
+		if (!is_alive(l_inf))
 			return (0);
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		printf("%lld %d has taken the other fork\n", \
@@ -83,6 +82,7 @@ void	*rout(void *inf)
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		printf("%lld %d is eating\n", \
 		get_timestamp(l_inf.start), l_inf.i);
+		// ++n_eat;
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		usleep(l_inf.t_eat * 1000);
 		l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
@@ -160,5 +160,5 @@ int	main (int ac, char **av)
 		(temp.n_philo)--;
 	}
 	printf("%lld %d died\n", \
-		get_timestamp(temp.start), *(temp.d_flag));
+	get_timestamp(temp.start), *(temp.d_flag));
 }
