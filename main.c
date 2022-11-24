@@ -35,7 +35,7 @@ int	is_alive(t_inf inf)
 	v = get_timestamp(inf.start) - inf.last_meal[inf.i - 1];
 	if (v < inf.t_die)
 	{
-		printf("checking for %d %lld < %d\n", inf.i, v, inf.t_die);
+		// printf("checking for %d %lld < %d\n", inf.i, v, inf.t_die);
 		return (1);
 	}
 	if (!(*(inf.d_flag)))
