@@ -34,20 +34,20 @@ void	ft_usleep(long long v, t_inf inf)
 	while (get_timestamp(inf.start) - i < v)
 		usleep(250);
 }
-int	is_alive(t_inf inf)
-{
-	// struct timeval t;
-	long long		v;
+// int	is_alive(t_inf inf)
+// {
+// 	// struct timeval t;
+// 	long long		v;
 
-	// gettimeofday(&t,NULL);
-	v = get_timestamp(inf.start) - inf.last_meal[inf.i - 1];
-	if (v < inf.t_die)
-		return (1);
-	printf("checking for %d %lld < %d\n", inf.i, v, inf.t_die);
-	if (!(*(inf.d_flag)))
-		*(inf.d_flag) = inf.i; // to remember the first thread who died
-	return (0);
-}
+// 	// gettimeofday(&t,NULL);
+// 	v = get_timestamp(inf.start) - inf.last_meal[inf.i - 1];
+// 	if (v < inf.t_die)
+// 		return (1);
+// 	printf("checking for %d %lld < %d\n", inf.i, v, inf.t_die);
+// 	if (!(*(inf.d_flag)))
+// 		*(inf.d_flag) = inf.i; // to remember the first thread who died
+// 	return (0);
+// }
 
 void	*rout(void *inf)
 {
@@ -95,7 +95,9 @@ void	*rout(void *inf)
 		ft_usleep(l_inf.t_eat, l_inf);
 		// if (!is_alive(l_inf))
 		// 	return (0);
+		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
+		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		pthread_mutex_unlock(&(l_inf.mutex[l_inf.my_frk])); //unlocked the mutex;
 		pthread_mutex_unlock(&(l_inf.mutex[l_inf.othr_frk])); //unlock the mutex;
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
@@ -144,10 +146,11 @@ void	ft_init(t_inf *temp, char **av, int ac)
 
 int	main (int ac, char **av)
 {
-	t_inf	*inf;
-	t_inf	temp;
-	int		i;
-	pthread_t *t;
+	t_inf		*inf;
+	t_inf		temp;
+	pthread_t	*t;
+	int			i;
+	long long	l_meal;
 
 	printf("this is the size %ld\n", sizeof(useconds_t));
 	i = 0;
@@ -166,8 +169,10 @@ int	main (int ac, char **av)
 	i = 0;
 	while (1)
 	{
-		// printf("checking %d\n", i + 1);
-		if ((get_timestamp(temp.start) - temp.last_meal[i]) >= temp.t_die)
+		pthread_mutex_lock(&(temp.death_mutex[i]));
+		l_meal = temp.last_meal[i];
+		pthread_mutex_unlock(&(temp.death_mutex[i]));
+		if ((get_timestamp(temp.start) - l_meal) >= temp.t_die)
 		{
 			while (temp.n_philo)
 			{
