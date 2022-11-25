@@ -16,11 +16,6 @@ typedef struct var{
 	int				n_eat;
 }t_inf;
 
-// void	ft_usleep(long long v, t_inf inf)
-// {
-// 	while (get_timestamp())
-// }
-
 long long	get_timestamp(struct timeval start)
 {
 	struct timeval	t;
@@ -31,6 +26,14 @@ long long	get_timestamp(struct timeval start)
 	return (v);
 }
 
+void	ft_usleep(long long v, t_inf inf)
+{
+	long long i;
+
+	i = get_timestamp(inf.start);
+	while (get_timestamp(inf.start) - i < v)
+		usleep(250);
+}
 int	is_alive(t_inf inf)
 {
 	// struct timeval t;
@@ -55,7 +58,7 @@ void	*rout(void *inf)
 	else
 		l_inf.othr_frk = l_inf.n_philo - 1;
 	if (!(l_inf.i % 2))
-		usleep(1400);
+		ft_usleep(1, l_inf);
 	while (1)
 	{
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
@@ -64,7 +67,7 @@ void	*rout(void *inf)
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		if (l_inf.n_philo == 1)
 		{
-			usleep(l_inf.t_die * 1000);
+			ft_usleep(l_inf.t_die, l_inf);
 			*(l_inf.d_flag) = l_inf.i;
 			return (0);
 		}
@@ -89,7 +92,7 @@ void	*rout(void *inf)
 		get_timestamp(l_inf.start), l_inf.i);
 		// ++n_eat;
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
-		usleep(l_inf.t_eat * 1000);
+		ft_usleep(l_inf.t_eat, l_inf);
 		// if (!is_alive(l_inf))
 		// 	return (0);
 		l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
@@ -99,7 +102,7 @@ void	*rout(void *inf)
 		printf("%lld %d is sleeping\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
-		usleep(l_inf.t_sleep * 1000);
+		ft_usleep(l_inf.t_sleep, l_inf);
 		// printf("ha2 %lld\n",get_timestamp(l_inf.start) - l_inf.last_meal[l_inf.i - 1]);
 	}
 	free(inf);
