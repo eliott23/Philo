@@ -34,7 +34,6 @@ void	ft_usleep(long long v, t_inf inf)
 	while (get_timestamp(inf.start) - i < v)
 		usleep(250);
 }
-
 // int	is_alive(t_inf inf)
 // {
 // 	// struct timeval t;
