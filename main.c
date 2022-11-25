@@ -50,7 +50,7 @@ void	*rout(void *inf)
 	else
 		l_inf.othr_frk = l_inf.n_philo - 1;
 	if (!(l_inf.i % 2))
-		usleep(1400 - ((l_inf.i + 1) * 100));
+		usleep(1400);
 	while (is_alive(l_inf))
 	{
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
