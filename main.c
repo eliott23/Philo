@@ -72,29 +72,21 @@ void	*rout(void *inf)
 			return (0);
 		}
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.my_frk])); //locked the mutex;
-		// if (!is_alive(l_inf))
-		// 	return (0);
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		printf("%lld %d has taken his fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		pthread_mutex_lock(&(l_inf.mutex[l_inf.othr_frk])); //locked the mutex
-		// if (!is_alive(l_inf))
-		// 	return (0);
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		printf("%lld %d has taken the other fork\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
-		// if (!is_alive(l_inf))
-		// 	return (0);
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		printf("%lld %d is eating\n", \
 		get_timestamp(l_inf.start), l_inf.i);
 		// ++n_eat;
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		ft_usleep(l_inf.t_eat, l_inf);
-		// if (!is_alive(l_inf))
-		// 	return (0);
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
@@ -105,7 +97,6 @@ void	*rout(void *inf)
 		get_timestamp(l_inf.start), l_inf.i);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		ft_usleep(l_inf.t_sleep, l_inf);
-		// printf("ha2 %lld\n",get_timestamp(l_inf.start) - l_inf.last_meal[l_inf.i - 1]);
 	}
 	free(inf);
 	return(0);
