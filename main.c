@@ -85,6 +85,8 @@ void	*rout(void *inf)
 		// ++n_eat;
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		usleep(l_inf.t_eat * 1000);
+		if (!is_alive(l_inf))
+			return (0);
 		l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
 		pthread_mutex_unlock(&(l_inf.mutex[l_inf.my_frk])); //unlocked the mutex;
 		pthread_mutex_unlock(&(l_inf.mutex[l_inf.othr_frk])); //unlock the mutex;
