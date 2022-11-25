@@ -34,9 +34,7 @@ int	is_alive(t_inf inf)
 	gettimeofday(&t,NULL);
 	v = get_timestamp(inf.start) - inf.last_meal[inf.i - 1];
 	if (v < inf.t_die)
-	{
 		return (1);
-	}
 	printf("checking for %d %lld < %d\n", inf.i, v, inf.t_die);
 	if (!(*(inf.d_flag)))
 		*(inf.d_flag) = inf.i; // to remember the first thread who died
@@ -52,7 +50,7 @@ void	*rout(void *inf)
 	else
 		l_inf.othr_frk = l_inf.n_philo - 1;
 	if (!(l_inf.i % 2))
-		usleep(1500);
+		usleep(1400 - ((l_inf.i + 1) * 100));
 	while (is_alive(l_inf))
 	{
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
