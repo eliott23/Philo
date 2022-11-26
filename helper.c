@@ -6,11 +6,40 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:48:09 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/26 17:56:47 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:38:51 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+int	m_helper(t_inf temp, int i, int count)
+{
+	long long	l_meal;
+
+	while (i < temp.n_philo)
+	{
+		pthread_mutex_lock(&(temp.death_mutex[i]));
+		l_meal = temp.last_meal[i];
+		if (temp.n_eat && temp.n_eat[i] >= temp.m_eat)
+			count++;
+		if (pthread_mutex_unlock(&(temp.death_mutex[i])))
+			return (0);
+		if ((get_timestamp(temp.start) - l_meal) >= temp.t_die)
+		{
+			m_helper2(temp, i);
+			return (0);
+		}
+		i++;
+		if (count == temp.n_philo)
+			return (0);
+		else if (i == temp.n_philo)
+		{
+			i = 0;
+			count = 0;
+		}
+	}
+	return (0);
+}
 
 void	ft_usleep(long long v, t_inf inf)
 {
