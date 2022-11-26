@@ -25,4 +25,5 @@ typedef struct var{
 
 long long int   ft_atoi(const char *str);
 void			ft_init(t_inf *temp, char **av, int ac);
+long long		get_timestamp(struct timeval start);
 #endif

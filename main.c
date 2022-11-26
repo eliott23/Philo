@@ -6,22 +6,11 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/26 17:45:29 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/26 17:55:46 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-long long	get_timestamp(struct timeval start)
-{
-	struct timeval	t;
-	long long		v;
-
-	gettimeofday(&t, NULL);
-	v = ((t.tv_sec * 1000000) \
-			+ t.tv_usec - (start.tv_sec * 1000000) - start.tv_usec) / 1000;
-	return (v);
-}
 
 void	ft_usleep(long long v, t_inf inf)
 {

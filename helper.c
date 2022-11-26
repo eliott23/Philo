@@ -6,11 +6,22 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:48:09 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/26 17:52:31 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/26 17:55:36 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+long long	get_timestamp(struct timeval start)
+{
+	struct timeval	t;
+	long long		v;
+
+	gettimeofday(&t, NULL);
+	v = ((t.tv_sec * 1000000) \
+			+ t.tv_usec - (start.tv_sec * 1000000) - start.tv_usec) / 1000;
+	return (v);
+}
 
 static	void	helper(t_inf *temp, int ac, char **av)
 {
