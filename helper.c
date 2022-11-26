@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:48:09 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/26 18:40:46 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/26 19:07:19 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ long long	get_timestamp(struct timeval start)
 	return (v);
 }
 
-static	void	helper(t_inf *temp, int ac, char **av)
+static	void	h(t_inf *temp, int ac, char **av)
 {
 	int	i;
 
@@ -101,5 +101,5 @@ void	ft_init(t_inf *temp, char **av, int ac)
 		pthread_mutex_init(&(temp->death_mutex[i]), NULL);
 		i++;
 	}
-	helper(temp, ac, av);
+	h(temp, ac, av);
 }
