@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/26 18:39:29 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:43:18 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,17 +85,6 @@ void	*rout(void *inf)
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1]));
 		ft_usleep(l_inf.t_sleep, l_inf);
 	}
-}
-
-void	m_helper2(t_inf temp, int i)
-{	
-	while (temp.n_philo)
-	{
-		pthread_mutex_lock(&(temp.death_mutex[temp.n_philo - 1]));
-		(temp.n_philo)--;
-	}
-	printf("%lld %d died\n", \
-	get_timestamp(temp.start), i + 1);
 }
 
 int	main(int ac, char **av)

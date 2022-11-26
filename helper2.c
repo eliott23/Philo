@@ -6,9 +6,22 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:06:43 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/26 16:06:47 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:43:03 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+#include "philo.h"
+
+void	m_helper2(t_inf temp, int i)
+{
+	while (temp.n_philo)
+	{
+		pthread_mutex_lock(&(temp.death_mutex[temp.n_philo - 1]));
+		(temp.n_philo)--;
+	}
+	printf("%lld %d died\n", \
+	get_timestamp(temp.start), i + 1);
+}
 
 static void	ft_skip_signe(int *i, const char *str, int *s)
 {
