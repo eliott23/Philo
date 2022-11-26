@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/26 18:14:20 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:24:57 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,41 @@ void	*rout(void *inf)
 	}
 }
 
+int	m_helper(t_inf temp, int i, int count)
+{	
+	long long	l_meal;
+
+	while (i < temp.n_philo)
+	{
+		pthread_mutex_lock(&(temp.death_mutex[i]));
+		l_meal = temp.last_meal[i];
+		if (temp.n_eat && temp.n_eat[i] >= temp.m_eat)
+			count++;
+		if (pthread_mutex_unlock(&(temp.death_mutex[i])))
+			return (0);
+		if ((get_timestamp(temp.start) - l_meal) >= temp.t_die)
+		{
+			while (temp.n_philo)
+			{
+				pthread_mutex_lock(&(temp.death_mutex[temp.n_philo - 1]));
+				(temp.n_philo)--;
+			}
+			printf("%lld %d died\n", \
+			get_timestamp(temp.start), i + 1);
+			return (0);
+		}
+		i++;
+		if (count == temp.n_philo)
+			return (0);
+		else if (i == temp.n_philo)
+		{
+			i = 0;
+			count = 0;
+		}
+	}
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_inf		*inf;
@@ -107,10 +142,12 @@ int	main(int ac, char **av)
 		inf = malloc(sizeof(t_inf));
 		*inf = temp;
 		inf->i = i + 1;
-		if(pthread_create(&t[i], NULL, &rout, inf))
+		if (pthread_create(&t[i], NULL, &rout, inf))
 			return (0);
 		i++;
 	}
+	// if(!(m_helper(temp, 0, count));
+	// 	return (0);
 	i = 0;
 	while (i < temp.n_philo)
 	{
