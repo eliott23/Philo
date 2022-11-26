@@ -37,6 +37,11 @@ void	ft_usleep(long long v, t_inf inf)
 		usleep(250);
 }
 
+void	helper(t_inf *inf)
+{
+
+}
+
 void	*rout(void *inf)
 {
 	t_inf	l_inf;
