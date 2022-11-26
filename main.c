@@ -60,7 +60,8 @@ void	*rout(void *inf)
 		l_inf.othr_frk = l_inf.n_philo - 1;
 	if (!(l_inf.i % 2))
 		ft_usleep(1, l_inf);
-	l_inf.n_eat[l_inf.i -1] = 0;
+	if (l_inf.n_eat)
+		l_inf.n_eat[l_inf.i -1] = 0;
 	while (1)
 	{
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
