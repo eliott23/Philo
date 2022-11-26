@@ -35,20 +35,6 @@ void	ft_usleep(long long v, t_inf inf)
 	while (get_timestamp(inf.start) - i < v)
 		usleep(250);
 }
-// int	is_alive(t_inf inf)
-// {
-// 	// struct timeval t;
-// 	long long		v;
-
-// 	// gettimeofday(&t,NULL);
-// 	v = get_timestamp(inf.start) - inf.last_meal[inf.i - 1];
-// 	if (v < inf.t_die)
-// 		return (1);
-// 	printf("checking for %d %lld < %d\n", inf.i, v, inf.t_die);
-// 	if (!(*(inf.d_flag)))
-// 		*(inf.d_flag) = inf.i; // to remember the first thread who died
-// 	return (0);
-// }
 
 void	*rout(void *inf)
 {
@@ -60,8 +46,10 @@ void	*rout(void *inf)
 		l_inf.othr_frk = l_inf.n_philo - 1;
 	if (!(l_inf.i % 2))
 		ft_usleep(1, l_inf);
+	pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;		
 	if (l_inf.n_eat)
 		l_inf.n_eat[l_inf.i -1] = 0;
+	pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;	
 	while (1)
 	{
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
