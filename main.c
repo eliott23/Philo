@@ -133,7 +133,7 @@ void	ft_init(t_inf *temp, char **av, int ac)
 		temp->n_eat = NULL;
 }
 
-int	main (int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_inf		*inf;
 	t_inf		temp;
@@ -153,7 +153,7 @@ int	main (int ac, char **av)
 		inf = malloc(sizeof(t_inf));
 		*inf = temp;
 		inf->i = i + 1;
-		pthread_create(&t[i],NULL, &rout, inf);
+		pthread_create(&t[i], NULL, &rout, inf);
 		i++;
 	}
 	i = 0;
