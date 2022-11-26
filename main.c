@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/26 18:34:42 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/26 18:35:10 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,14 +112,7 @@ int	m_helper(t_inf temp, int i, int count)
 			return (0);
 		if ((get_timestamp(temp.start) - l_meal) >= temp.t_die)
 		{
-			//m_helper2(temp, i);
-			while (temp.n_philo)
-			{
-				pthread_mutex_lock(&(temp.death_mutex[temp.n_philo - 1]));
-				(temp.n_philo)--;
-			}
-			printf("%lld %d died\n", \
-			get_timestamp(temp.start), i + 1);
+			m_helper2(temp, i);
 			return (0);
 		}
 		i++;
