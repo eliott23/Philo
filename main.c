@@ -40,6 +40,7 @@ void	ft_usleep(long long v, t_inf inf)
 void	*rout(void *inf)
 {
 	t_inf	l_inf;
+
 	l_inf = *(t_inf *)inf;
 	l_inf.my_frk = l_inf.i - 1;
 	if (l_inf.i >= 2)
@@ -92,8 +93,8 @@ void	*rout(void *inf)
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1]));
 		ft_usleep(l_inf.t_sleep, l_inf);
 	}
-	free(inf);
-	return(0);
+	free (inf);
+	return (0);
 }
 
 void	ft_init(t_inf *temp, char **av, int ac)
@@ -101,7 +102,7 @@ void	ft_init(t_inf *temp, char **av, int ac)
 	int	i;
 
 	i = 0;
-	gettimeofday(&(temp->start),NULL);
+	gettimeofday(&(temp->start), NULL);
 	temp->i = 0;
 	temp->n_philo = ft_atoi(av[1]);
 	temp->t_die = ft_atoi(av[2]);
