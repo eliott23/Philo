@@ -37,7 +37,7 @@ void	ft_usleep(long long v, t_inf inf)
 		usleep(250);
 }
 
-void	helper(t_inf l_inf)
+void	helper2(t_inf l_inf)
 {
 	pthread_mutex_lock(&(l_inf.mutex[l_inf.my_frk]));
 	pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1]));
@@ -66,9 +66,8 @@ void	helper(t_inf l_inf)
 	get_timestamp(l_inf.start), l_inf.i);
 }
 
-void	helper2(t_inf l_inf)
+void	helper(t_inf l_inf)
 {
-
 }
 
 void	*rout(void *inf)
@@ -99,7 +98,7 @@ void	*rout(void *inf)
 			*(l_inf.d_flag) = l_inf.i;
 			return (0);
 		}
-		helper(l_inf);
+		helper2(l_inf);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1]));
 		ft_usleep(l_inf.t_sleep, l_inf);
 	}
