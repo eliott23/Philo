@@ -1,21 +1,16 @@
-#include "philo.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
+/*   Updated: 2022/11/26 17:45:29 by aababach         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-typedef struct var{
-	int				*d_flag;
-	int				i;
-	int				my_frk;
-	int				othr_frk;
-	struct timeval	start;
-	pthread_mutex_t	*mutex;
-	pthread_mutex_t	*death_mutex;
-	long long		*last_meal;
-	int				t_sleep;
-	int				t_eat;
-	int				t_die;
-	int				n_philo;
-	int				*n_eat;
-	int				m_eat;
-}t_inf;
+#include "philo.h"
 
 long long	get_timestamp(struct timeval start)
 {
@@ -110,42 +105,6 @@ void	*rout(void *inf)
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1]));
 		ft_usleep(l_inf.t_sleep, l_inf);
 	}
-}
-
-void	ft_init(t_inf *temp, char **av, int ac)
-{
-	int	i;
-
-	i = 0;
-	gettimeofday(&(temp->start), NULL);
-	temp->i = 0;
-	temp->n_philo = ft_atoi(av[1]);
-	temp->t_die = ft_atoi(av[2]);
-	temp->t_eat = ft_atoi(av[3]);
-	temp->t_sleep = ft_atoi(av[4]);
-	temp->n_eat = malloc(sizeof(int) * (temp->n_philo));
-	temp->mutex = malloc(sizeof(pthread_mutex_t) * (temp->n_philo));
-	temp->death_mutex = malloc(sizeof(pthread_mutex_t) * (temp->n_philo));
-	temp->last_meal = malloc(sizeof(long long) * (temp->n_philo));
-	temp->d_flag = malloc(sizeof(int));
-	*(temp->d_flag) = 0;
-	i = 0;
-	while (i < temp->n_philo)
-	{
-		pthread_mutex_init(&(temp->mutex[i]), NULL);
-		pthread_mutex_init(&(temp->death_mutex[i]), NULL);
-		i++;
-	}
-	i = 0;
-	while (i < temp->n_philo)
-	{
-		temp->last_meal[i] = 0;
-		i++;
-	}
-	if (ac > 5)
-		temp->m_eat = ft_atoi(av[5]);
-	else
-		temp->n_eat = NULL;
 }
 
 int	main(int ac, char **av)
