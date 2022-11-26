@@ -6,11 +6,27 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:48:09 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/26 17:48:11 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/26 17:52:31 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+static	void	helper(t_inf *temp, int ac, char **av)
+{
+	int	i;
+
+	i = 0;
+	while (i < temp->n_philo)
+	{
+		temp->last_meal[i] = 0;
+		i++;
+	}
+	if (ac > 5)
+		temp->m_eat = ft_atoi(av[5]);
+	else
+		temp->n_eat = NULL;
+}
 
 void	ft_init(t_inf *temp, char **av, int ac)
 {
@@ -36,14 +52,5 @@ void	ft_init(t_inf *temp, char **av, int ac)
 		pthread_mutex_init(&(temp->death_mutex[i]), NULL);
 		i++;
 	}
-	i = 0;
-	while (i < temp->n_philo)
-	{
-		temp->last_meal[i] = 0;
-		i++;
-	}
-	if (ac > 5)
-		temp->m_eat = ft_atoi(av[5]);
-	else
-		temp->n_eat = NULL;
+	helper(temp, ac, av);
 }
