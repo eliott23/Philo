@@ -158,17 +158,10 @@ int	main (int ac, char **av)
 	{
 		pthread_mutex_lock(&(temp.death_mutex[i]));
 		l_meal = temp.last_meal[i];
-		// printf("this is temp.n_eat[1] %d\n", i, temp.n_eat[i]);
-		// // if (temp.n_eat[i] >= temp.m_eat)
-		// // {
-		// // 	printf("lol\n");
-		// // }
 		if (temp.n_eat && temp.n_eat[i] >= temp.m_eat)
-		{
 			count++;
-			// printf("went here now count == %d\n", count);
-		}
-		pthread_mutex_unlock(&(temp.death_mutex[i]));
+		if (pthread_mutex_unlock(&(temp.death_mutex[i])))
+			return (0);
 		if ((get_timestamp(temp.start) - l_meal) >= temp.t_die)
 		{
 			while (temp.n_philo)
@@ -182,9 +175,7 @@ int	main (int ac, char **av)
 		}
 		i++;
 		if (count == temp.n_philo)
-		{
-			i = temp.n_philo;
-		}
+			return (0);
 		else if (i == temp.n_philo)
 		{
 			i = 0;
