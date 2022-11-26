@@ -37,7 +37,7 @@ void	ft_usleep(long long v, t_inf inf)
 		usleep(250);
 }
 
-void	helper2(t_inf l_inf)
+void	helper3(t_inf l_inf)
 {
 	pthread_mutex_lock(&(l_inf.mutex[l_inf.my_frk]));
 	pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1]));
@@ -67,7 +67,22 @@ void	helper2(t_inf l_inf)
 }
 
 void	helper(t_inf l_inf)
+{	
+	pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1]));
+	printf("%lld %d is thinking\n", \
+	get_timestamp(l_inf.start), l_inf.i);
+	pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1]));
+}
+
+int	helper2(t_inf l_inf)
 {
+	if (l_inf.n_philo == 1)
+	{
+		ft_usleep(l_inf.t_die, l_inf);
+		*(l_inf.d_flag) = l_inf.i;
+		return (0);
+	}
+	return (1);
 }
 
 void	*rout(void *inf)
@@ -88,17 +103,10 @@ void	*rout(void *inf)
 	pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1]));
 	while (1)
 	{
-		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1]));
-		printf("%lld %d is thinking\n", \
-		get_timestamp(l_inf.start), l_inf.i);
-		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1]));
-		if (l_inf.n_philo == 1)
-		{
-			ft_usleep(l_inf.t_die, l_inf);
-			*(l_inf.d_flag) = l_inf.i;
+		helper(l_inf);
+		if (!helper2(l_inf))
 			return (0);
-		}
-		helper2(l_inf);
+		helper3(l_inf);
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1]));
 		ft_usleep(l_inf.t_sleep, l_inf);
 	}
