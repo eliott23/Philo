@@ -6,20 +6,11 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/26 17:55:46 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/26 17:58:19 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
-
-void	ft_usleep(long long v, t_inf inf)
-{
-	long long	i;
-
-	i = get_timestamp(inf.start);
-	while (get_timestamp(inf.start) - i < v)
-		usleep(250);
-}
 
 void	helper3(t_inf l_inf)
 {

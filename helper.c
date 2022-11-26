@@ -6,11 +6,20 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:48:09 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/26 17:55:36 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/26 17:56:47 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	ft_usleep(long long v, t_inf inf)
+{
+	long long	i;
+
+	i = get_timestamp(inf.start);
+	while (get_timestamp(inf.start) - i < v)
+		usleep(250);
+}
 
 long long	get_timestamp(struct timeval start)
 {
