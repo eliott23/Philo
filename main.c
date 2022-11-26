@@ -13,7 +13,8 @@ typedef struct var{
 	int				t_eat;
 	int				t_die;
 	int				n_philo;
-	int				n_eat;
+	int				*n_eat;
+	int				m_eat;
 }t_inf;
 
 long long	get_timestamp(struct timeval start)
@@ -59,6 +60,7 @@ void	*rout(void *inf)
 		l_inf.othr_frk = l_inf.n_philo - 1;
 	if (!(l_inf.i % 2))
 		ft_usleep(1, l_inf);
+	l_inf.n_eat[l_inf.i -1] = 0;
 	while (1)
 	{
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
@@ -84,7 +86,8 @@ void	*rout(void *inf)
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
 		printf("%lld %d is eating\n", \
 		get_timestamp(l_inf.start), l_inf.i);
-		// ++n_eat;
+		if (l_inf.n_eat)
+			l_inf.n_eat[l_inf.i - 1]++;
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1])); // unlocked d_mutex;
 		ft_usleep(l_inf.t_eat, l_inf);
 		pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1])); // locked d_mutex;
@@ -113,6 +116,7 @@ void	ft_init(t_inf *temp, char **av, int ac)
 	temp->t_die = ft_atoi(av[2]);
 	temp->t_eat = ft_atoi(av[3]);
 	temp->t_sleep = ft_atoi(av[4]);
+	temp->n_eat = malloc(sizeof(int) * (temp->n_philo));
 	temp->mutex = malloc(sizeof(pthread_mutex_t) * (temp->n_philo));
 	temp->death_mutex = malloc(sizeof(pthread_mutex_t) * (temp->n_philo));
 	temp->last_meal = malloc(sizeof(long long) * (temp->n_philo));
@@ -132,7 +136,9 @@ void	ft_init(t_inf *temp, char **av, int ac)
 		i++;
 	}
 	if (ac > 5)
-		temp->n_eat = ft_atoi(av[5]);
+		temp->m_eat = ft_atoi(av[5]);
+	else
+		temp->n_eat = NULL;
 }
 
 int	main (int ac, char **av)
@@ -142,8 +148,9 @@ int	main (int ac, char **av)
 	pthread_t	*t;
 	int			i;
 	long long	l_meal;
+	int			count;
 
-	printf("this is the size %ld\n", sizeof(useconds_t));
+	count = 0;
 	i = 0;
 	if (ac < 5)
 		return (0);
@@ -158,10 +165,20 @@ int	main (int ac, char **av)
 		i++;
 	}
 	i = 0;
-	while (1)
+	while (i < temp.n_philo)
 	{
 		pthread_mutex_lock(&(temp.death_mutex[i]));
 		l_meal = temp.last_meal[i];
+		// printf("this is temp.n_eat[1] %d\n", i, temp.n_eat[i]);
+		// // if (temp.n_eat[i] >= temp.m_eat)
+		// // {
+		// // 	printf("lol\n");
+		// // }
+		if (temp.n_eat && temp.n_eat[i] >= temp.m_eat)
+		{
+			count++;
+			// printf("went here now count == %d\n", count);
+		}
 		pthread_mutex_unlock(&(temp.death_mutex[i]));
 		if ((get_timestamp(temp.start) - l_meal) >= temp.t_die)
 		{
@@ -175,7 +192,14 @@ int	main (int ac, char **av)
 			return (0);
 		}
 		i++;
-		if (i == temp.n_philo)
+		if (count == temp.n_philo)
+		{
+			i = temp.n_philo;
+		}
+		else if (i == temp.n_philo)
+		{
 			i = 0;
+			count = 0;
+		}
 	}
 }
