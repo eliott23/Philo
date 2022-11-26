@@ -5,9 +5,9 @@ typedef struct var{
 	int				i;
 	int				my_frk;
 	int				othr_frk;
-	struct			timeval start;
+	struct timeval	start;
 	pthread_mutex_t	*mutex;
-	pthread_mutex_t *death_mutex;
+	pthread_mutex_t	*death_mutex;
 	long long		*last_meal;
 	int				t_sleep;
 	int				t_eat;
@@ -39,7 +39,8 @@ void	ft_usleep(long long v, t_inf inf)
 
 void	*rout(void *inf)
 {
-	t_inf l_inf = *(t_inf *)inf;
+	t_inf	l_inf;
+	l_inf = *(t_inf *)inf;
 	l_inf.my_frk = l_inf.i - 1;
 	if (l_inf.i >= 2)
 		l_inf.othr_frk = l_inf.i - 2;
