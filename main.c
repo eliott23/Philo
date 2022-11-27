@@ -101,6 +101,8 @@ int	main(int ac, char **av)
 		return (0);
 	ft_init(&temp, av, ac);
 	t = malloc(sizeof(pthread_t) * temp.n_philo);
+	if (!t)
+		return (0);
 	while (i < temp.n_philo)
 	{
 		inf = malloc(sizeof(t_inf));
