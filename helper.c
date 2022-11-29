@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:48:09 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/29 20:50:19 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/29 20:56:14 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,11 +95,7 @@ int	ft_init(t_inf *temp, char **av, int ac)
 	temp->d_flag = malloc(sizeof(int));
 	*(temp->d_flag) = 0;
 	if (!ft_p(temp, &i))
-	{
 		return (0);
-	}
-	//protect anything <= 0 and malloc;
-	//i = 0;
 	while (i < temp->n_philo)
 	{
 		pthread_mutex_init(&(temp->mutex[i]), NULL);
