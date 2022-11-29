@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:48:09 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/26 19:07:19 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/29 20:50:19 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static	void	h(t_inf *temp, int ac, char **av)
 		temp->n_eat = NULL;
 }
 
-void	ft_init(t_inf *temp, char **av, int ac)
+int	ft_init(t_inf *temp, char **av, int ac)
 {
 	int	i;
 
@@ -94,7 +94,12 @@ void	ft_init(t_inf *temp, char **av, int ac)
 	temp->last_meal = malloc(sizeof(long long) * (temp->n_philo));
 	temp->d_flag = malloc(sizeof(int));
 	*(temp->d_flag) = 0;
-	i = 0;
+	if (!ft_p(temp, &i))
+	{
+		return (0);
+	}
+	//protect anything <= 0 and malloc;
+	//i = 0;
 	while (i < temp->n_philo)
 	{
 		pthread_mutex_init(&(temp->mutex[i]), NULL);
@@ -102,4 +107,5 @@ void	ft_init(t_inf *temp, char **av, int ac)
 		i++;
 	}
 	h(temp, ac, av);
+	return (1);
 }

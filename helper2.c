@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 16:06:43 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/26 18:44:14 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/29 20:22:13 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,5 +50,7 @@ long long int	ft_atoi(const char *str)
 		rslt = rslt * 10 + str[i] - 48;
 		i++;
 	}
+	if (str[i] && str[i] != 32)
+		return (0);
 	return (rslt * s);
 }

@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:59:51 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/26 18:44:11 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/29 20:38:31 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,9 @@ typedef struct var{
 	int				m_eat;
 }t_inf;
 
+int				ft_p(t_inf *inf, int *i);
 long long int	ft_atoi(const char *str);
-void			ft_init(t_inf *temp, char **av, int ac);
+int				ft_init(t_inf *temp, char **av, int ac);
 long long		get_timestamp(struct timeval start);
 void			ft_usleep(long long v, t_inf inf);
 int				m_helper(t_inf temp, int i, int count);
