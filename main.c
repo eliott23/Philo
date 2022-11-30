@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/30 18:51:56 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/30 19:53:29 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ void	*rout(void *inf)
 {
 	t_inf	l_inf;
 
+	printf("lol\n");
 	l_inf = *(t_inf *)inf;
 	l_inf.my_frk = l_inf.i - 1;
 	if (l_inf.i >= 2)
@@ -102,6 +103,7 @@ int	main(int ac, char **av)
 	t = malloc(sizeof(pthread_t) * temp.n_philo);
 	if (!ft_init(&temp, av, ac) || !t)
 		return (0);
+	ft_f(&temp);
 	inf = malloc(sizeof(t_inf) * temp.n_philo);
 	while (i < temp.n_philo)
 	{
