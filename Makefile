@@ -1,18 +1,22 @@
 FLAGS=-Wall -Wextra -Werror
 NAME=philo\
 
-CSRC=helper.c\
-client.c\
+SRC=main.c\
+helper.c\
+helper2.c\
+protections.c\
+
+OBJ=main.o\
+helper.o\
+helper2.o\
+protections.o\
 
 all:$(NAME) 
 
-$(NAME):$(SOBJ) $(HOBJ)
+$(NAME):$(OBJ)
 	cc $(FLAGS) -o $@ $^
 
-$(SOBJ):$(SSRC)
-	cc $(FLAGS) -c $^
-
-$(HOBJ):$(HSRC)
+$(OBJ):$(SRC)
 	cc $(FLAGS) -c $^
 
 clean:
