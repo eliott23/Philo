@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:48:09 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/30 16:14:17 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/30 18:55:55 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,10 @@ static	void	h(t_inf *temp, int ac, char **av)
 	if (ac > 5)
 		temp->m_eat = ft_atoi(av[5]);
 	else
+	{
+		free(temp->n_eat);
 		temp->n_eat = NULL;
+	}
 }
 
 int	ft_init(t_inf *temp, char **av, int ac)
