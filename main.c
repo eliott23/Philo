@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/30 22:26:46 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/30 22:48:45 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ int	main(int ac, char **av)
 	if (!ft_init(&temp, av, ac) || !t)
 		return (0);
 	ft_f(&temp);
-	printf("checking %d\n",temp.n_eat[0]);
 	while (i < temp.n_philo)
 	{
 		inf = malloc(sizeof(t_inf));
@@ -117,6 +116,7 @@ int	main(int ac, char **av)
 			return (0);
 		i++;
 	}
+	printf("checking %d\n",(inf->n_eat)[0]);
 	if (!(m_helper(temp, 0, count)))
 		return (0);
 }
