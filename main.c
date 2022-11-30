@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/30 22:48:45 by aababach         ###   ########.fr       */
+/*   Updated: 2022/11/30 22:58:26 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,7 @@ void	*rout(void *inf)
 	pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1]));
 	if (l_inf.n_eat)
 		l_inf.n_eat[l_inf.i -1] = 0;
+	sleep(25);
 	pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1]));
 	while (1)
 	{
@@ -116,7 +117,9 @@ int	main(int ac, char **av)
 			return (0);
 		i++;
 	}
+	pthread_mutex_lock(&(temp.death_mutex[0]));
 	printf("checking %d\n",(inf->n_eat)[0]);
+	pthread_mutex_unlock(&(temp.death_mutex[0]));
 	if (!(m_helper(temp, 0, count)))
 		return (0);
 }
