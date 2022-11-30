@@ -20,9 +20,9 @@ $(OBJ):$(SRC)
 	cc $(FLAGS) -c $^
 
 clean:
-	rm -rf $(HOBJ) $(COBJ) $(SOBJ)
+	rm -rf $(OBJ)
 
 fclean:clean
-	rm -rf $(NAME) $(NAME2)
+	rm -rf $(NAME)
 
 re:fclean all
