@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/01 19:44:03 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/01 20:12:14 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,8 @@ int	helper2(t_inf l_inf)
 
 void	*rout(void *inf)
 {
-	printf("lol\n");
+	printf("fk it am sleeping\n");
+	sleep(25);
 	t_inf	l_inf;
 
 	l_inf = *(t_inf *)inf;
