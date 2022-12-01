@@ -1,4 +1,4 @@
-FLAGS=-fsanitize=threads -Wall -Wextra -Werror
+FLAGS=-Wall -Wextra -Werror
 NAME=philo\
 
 SRC=main.c\

@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:48:09 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/30 22:43:14 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/01 13:10:27 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	m_helper(t_inf temp, int i, int count)
 		l_meal = temp.last_meal[i];
 		if (temp.n_eat && (temp.n_eat)[i] >= temp.m_eat)
 		{
-			printf("counted %d >= %d and i = %d\n",(temp.n_eat)[i], temp.m_eat, i);
+			//printf("counted %d >= %d and i = %d\n",(temp.n_eat)[i], temp.m_eat, i);
 			count++;
 		}
 		pthread_mutex_unlock(&(temp.death_mutex[i]));
