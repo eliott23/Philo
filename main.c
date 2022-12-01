@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/01 18:46:16 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:58:13 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,8 +108,8 @@ int	main(int ac, char **av)
 	if (!ft_init(&temp, av, ac) || !t)
 		return (0);
 	ft_f(&temp);
-	//printf("checking %d and this is the address\
-	//%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
+	printf("checking %d and this is the address\
+	%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
 	while (i < temp.n_philo)
 	{
 		inf = malloc(sizeof(t_inf));
@@ -117,7 +117,7 @@ int	main(int ac, char **av)
 		inf->n_eat[i] = 0;
 		inf->i = i + 1;
 		pthread_create(&t[i], NULL, &rout, inf);
-		printf("checking %d and this is the address\
+	//	printf("checking %d and this is the address\
 		%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
 		i++;
 	}
