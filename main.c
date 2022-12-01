@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/01 18:27:55 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/01 18:46:16 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	main(int ac, char **av)
 	t = malloc(sizeof(pthread_t) * temp.n_philo);
 	if (!ft_init(&temp, av, ac) || !t)
 		return (0);
-	//ft_f(&temp);
+	ft_f(&temp);
 	//printf("checking %d and this is the address\
 	//%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
 	while (i < temp.n_philo)
@@ -117,8 +117,11 @@ int	main(int ac, char **av)
 		inf->n_eat[i] = 0;
 		inf->i = i + 1;
 		pthread_create(&t[i], NULL, &rout, inf);
+		printf("checking %d and this is the address\
+		%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
 		i++;
 	}
+	/*
 	i = 0;
 	while (i < temp.n_philo)
 	{
@@ -133,6 +136,7 @@ int	main(int ac, char **av)
 		pthread_mutex_unlock(&(temp.death_mutex[i]));
 		i++;
 	}
-	if (!(m_helper(temp, 0, count)))
+	*/
+	if (!(m_helper(*inf, 0, count)))
 		return (0);
 }
