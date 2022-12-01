@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/01 20:28:32 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/01 20:30:04 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ int	main(int ac, char **av)
 	{
 		inf = malloc(sizeof(t_inf));
 		*inf = temp;
-		inf->n_eat[i] = 0;
 		inf->i = i + 1;
 		pthread_create(&t[i], NULL, &rout, inf);
 		sleep(5);
