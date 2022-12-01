@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/01 20:16:35 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/01 20:28:32 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,7 @@ int	helper2(t_inf l_inf)
 	if (l_inf.n_philo == 1)
 	{
 		ft_usleep(l_inf.t_die, l_inf);
+		*(l_inf.d_flag) = l_inf.i;
 		return (0);
 	}
 	return (1);
@@ -110,6 +111,7 @@ int	main(int ac, char **av)
 	ft_f(&temp);
 	printf("checking %d bfr and this is the address\
 	%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
+	pthread_mutex_lock(&(temp.death_mutex[0]));
 	while (i < temp.n_philo)
 	{
 		inf = malloc(sizeof(t_inf));
@@ -117,10 +119,12 @@ int	main(int ac, char **av)
 		inf->n_eat[i] = 0;
 		inf->i = i + 1;
 		pthread_create(&t[i], NULL, &rout, inf);
+		sleep(5);
 		printf("checking %d and this is the address\
 		%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
 		i++;
 	}
+	pthread_mutex_unlock(&(temp.death_mutex[0]));
 	/*
 	i = 0;
 	while (i < temp.n_philo)
