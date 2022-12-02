@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/02 13:07:50 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:09:08 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,8 @@ int	main(int ac, char **av)
 	if (!ft_init(&temp, av, ac) || !t)
 		return (0);
 	ft_f(&temp);
-	printf("checking %d bfr and this is the address\
-	%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
+	printf("this is n_philo %d checking %d bfr and this is the address\
+	%p\n",temp.n_philo, (temp.n_eat)[0],&(temp.n_eat)[0]);
 	pthread_mutex_lock(&(temp.death_mutex[0]));
 	while (i < temp.n_philo)
 	{
