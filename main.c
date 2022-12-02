@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/01 13:37:35 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:46:03 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	helper2(t_inf l_inf)
 
 void	*rout(void *inf)
 {
-	printf("lol\n");
 	t_inf	l_inf;
 
 	l_inf = *(t_inf *)inf;
@@ -104,17 +103,16 @@ int	main(int ac, char **av)
 	i = 0;
 	if (ac < 5)
 		return (0);
-	t = malloc(sizeof(pthread_t) * temp.n_philo);
-	if (!ft_init(&temp, av, ac) || !t)
+	if (!ft_init(&temp, av, ac))
 		return (0);
-	//ft_f(&temp);
+	t = malloc(sizeof(pthread_t) * temp.n_philo);
+	ft_f(&temp);
 	//printf("checking %d and this is the address\
 	//%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
 	while (i < temp.n_philo)
 	{
 		inf = malloc(sizeof(t_inf));
 		*inf = temp;
-		inf->n_eat[i] = 0;
 		inf->i = i + 1;
 		pthread_create(&t[i], NULL, &rout, inf);
 		i++;
@@ -123,8 +121,6 @@ int	main(int ac, char **av)
 	while (i < temp.n_philo)
 	{
 		pthread_mutex_lock(&(temp.death_mutex[i]));
-		printf("checking %d and this is the address\
-		%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
 		pthread_mutex_unlock(&(temp.death_mutex[i]));
 		i++;
 	}
