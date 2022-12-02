@@ -6,13 +6,13 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 20:51:25 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/30 21:32:20 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:00:04 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	ft_f(t_inf *inf)
+int	ft_f(t_inf *inf)
 {
 	int	i;
 
@@ -25,6 +25,7 @@ void	ft_f(t_inf *inf)
 			i++;
 		}
 	}
+	return (1);
 }
 
 int	ft_p(t_inf *inf, int *i)

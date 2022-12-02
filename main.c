@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/02 15:55:51 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:02:19 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,8 @@ int	main(int ac, char **av)
 	if (ac < 5)
 		return (0);
 	t = malloc(sizeof(pthread_t) * ft_atoi(av[1]));
-	if (!ft_init(&temp, av, ac) || !t)
-		return (0);
-	ft_f(&temp);
+	if (!ft_init(&temp, av, ac) || !t || !ft_f(&temp))
+			return (0);
 	while (i < temp.n_philo)
 	{
 		inf = malloc(sizeof(t_inf));

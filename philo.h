@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:59:51 by aababach          #+#    #+#             */
-/*   Updated: 2022/11/30 21:33:27 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/02 16:00:29 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct var{
 	int				m_eat;
 }t_inf;
 
-void			ft_f(t_inf *inf);
+int				ft_f(t_inf *inf);
 int				ft_p(t_inf *inf, int *i);
 long long int	ft_atoi(const char *str);
 int				ft_init(t_inf *temp, char **av, int ac);
