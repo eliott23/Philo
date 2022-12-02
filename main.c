@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/01 20:30:04 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/02 13:07:50 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,28 +118,13 @@ int	main(int ac, char **av)
 		*inf = temp;
 		inf->i = i + 1;
 		pthread_create(&t[i], NULL, &rout, inf);
+		i++;
+	}
 		sleep(5);
 		printf("checking %d and this is the address\
 		%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
-		i++;
-	}
 	pthread_mutex_unlock(&(temp.death_mutex[0]));
-	/*
-	i = 0;
 	while (i < temp.n_philo)
-	{
-		pthread_mutex_lock(&(temp.death_mutex[i]));
-		i++;
-	}
-		printf("checking %d and this is the address\
-		%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
-	i = 0;
-	while (i < temp.n_philo)
-	{
-		pthread_mutex_unlock(&(temp.death_mutex[i]));
-		i++;
-	}
-	*/
 	if (!(m_helper(*inf, 0, count)))
 		return (0);
 }

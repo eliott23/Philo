@@ -1,4 +1,4 @@
-#include "philo.h"
+#include "../philo.h"
 
 void	*rou(void *inf)
 {
@@ -10,7 +10,11 @@ void	*rou(void *inf)
 int	main()
 {
 	int	i = 0;
-	pthread_t t = malloc(sizeof(pthread_t));
-	pthread_create(&t, NULL, &rou, &i);
+	pthread_t *t = malloc(sizeof(pthread_t) * 5);
+	pthread_create(&t[0], NULL, &rou, &i);
+	pthread_create(&t[1], NULL, &rou, &i);
+	pthread_create(&t[2], NULL, &rou, &i);
+	//pthread_create(&t[2], NULL, &rou, &i);
+	sleep(5);
 	printf("this is i now %d\n", i);
 }
