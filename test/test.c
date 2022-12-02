@@ -1,20 +1,67 @@
-#include "../philo.h"
+#include <stdlib.h>
+#include <stdio.h>
+#include <unistd.h>
+#include <pthread.h>
 
-void	*rou(void *inf)
+typedef struct var{
+	int				*d_flag;
+	int				i;
+	int				my_frk;
+	int				othr_frk;
+	struct timeval	start;
+	pthread_mutex_t	*mutex;
+	pthread_mutex_t	*death_mutex;
+	long long		*last_meal;
+	int				t_sleep;
+	int				t_eat;
+	int				t_die;
+	int				n_philo;
+	int				*n_eat;
+	int				m_eat;
+}t_inf;
+
+void	*achhadlmlawi(void *inf)
 {
-	printf("hh\n");
-	sleep(30);
+	printf("am sleeping\n");
+	sleep(250);
 	return (0);
 }
-
-int	main()
+int	main(int ac, char **av)
 {
-	int	i = 0;
-	pthread_t *t = malloc(sizeof(pthread_t) * 5);
-	pthread_create(&t[0], NULL, &rou, &i);
-	pthread_create(&t[1], NULL, &rou, &i);
-	pthread_create(&t[2], NULL, &rou, &i);
-	pthread_create(&t[3], NULL, &rou, &i);
-	sleep(5);
-	printf("this is i now %d\n", i);
+	t_inf		*inf;
+	t_inf		temp;
+	pthread_t	*t;
+	int			i;
+	int			count;
+
+	count = 0;
+	i = 0;
+	if (ac < 5)
+		return (0);
+	t = malloc(sizeof(pthread_t) * temp.n_philo);
+	if (!ft_init(&temp, av, ac) || !t)
+		return (0);
+	ft_f(&temp);
+	printf("this is i %d checking %d bfr and this is the address\
+	%p\n", i, (temp.n_eat)[0],&(temp.n_eat)[0]);
+	pthread_mutex_lock(&(temp.death_mutex[0]));
+	while (i < temp.n_philo)
+	{
+		inf = malloc(sizeof(t_inf));
+		*inf = temp;
+		inf->i = i + 1;
+		pthread_create(&t[i], NULL, &achhadlmlawi, NULL); // changed the routine and the argument
+		//sleep(1);
+		printf("checking %d and this is the address\
+		%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
+		i++;
+	}
+	printf("checking int the end %d and this is the address\
+		%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
+	pthread_mutex_unlock(&(temp.death_mutex[0]));
+	/*
+	while (i < temp.n_philo)
+	if (!(m_helper(*inf, 0, count)))
+		return (0);
+		*/
 }
