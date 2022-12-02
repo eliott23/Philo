@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/02 13:56:37 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/01 13:37:35 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,9 +66,8 @@ int	helper2(t_inf l_inf)
 
 void	*rout(void *inf)
 {
-	//printf("fk it am sleeping\n");
-	//sleep(250);
-/*	t_inf	l_inf;
+	printf("lol\n");
+	t_inf	l_inf;
 
 	l_inf = *(t_inf *)inf;
 	l_inf.my_frk = l_inf.i - 1;
@@ -91,15 +90,8 @@ void	*rout(void *inf)
 		pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1]));
 		ft_usleep(l_inf.t_sleep, l_inf);
 	}
-	*/
-	return (0); //remove after debug;
 }
-void	*achhadlmlawi(void *inf)
-{
-	printf("am sleeping\n");
-	sleep(250);
-	return (0);
-}
+
 int	main(int ac, char **av)
 {
 	t_inf		*inf;
@@ -112,31 +104,30 @@ int	main(int ac, char **av)
 	i = 0;
 	if (ac < 5)
 		return (0);
-	if (!ft_init(&temp, av, ac))
-		return (0);
 	t = malloc(sizeof(pthread_t) * temp.n_philo);
-	ft_f(&temp);
-	printf("this is i %d checking %d bfr and this is the address\
-	%p\n", i, (temp.n_eat)[0],&(temp.n_eat)[0]);
-	pthread_mutex_lock(&(temp.death_mutex[0]));
+	if (!ft_init(&temp, av, ac) || !t)
+		return (0);
+	//ft_f(&temp);
+	//printf("checking %d and this is the address\
+	//%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
 	while (i < temp.n_philo)
 	{
 		inf = malloc(sizeof(t_inf));
 		*inf = temp;
+		inf->n_eat[i] = 0;
 		inf->i = i + 1;
-		pthread_create(&t[i], NULL, &achhadlmlawi, NULL); // changed the routine and the argument
-		//sleep(1);
-		printf("checking %d and this is the address\
-		%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
+		pthread_create(&t[i], NULL, &rout, inf);
 		i++;
 	}
-	printf("checking int the end %d and this is the address\
-		%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
-	pthread_mutex_unlock(&(temp.death_mutex[0]));
-	sleep(500);
-	/*
+	i = 0;
 	while (i < temp.n_philo)
-	if (!(m_helper(*inf, 0, count)))
+	{
+		pthread_mutex_lock(&(temp.death_mutex[i]));
+		printf("checking %d and this is the address\
+		%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
+		pthread_mutex_unlock(&(temp.death_mutex[i]));
+		i++;
+	}
+	if (!(m_helper(temp, 0, count)))
 		return (0);
-		*/
 }
