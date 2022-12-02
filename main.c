@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/02 15:48:07 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:55:51 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,11 +28,7 @@ void	helper3(t_inf l_inf)
 	printf("%lld %d is eating\n", \
 	get_timestamp(l_inf.start), l_inf.i);
 	if (l_inf.n_eat)
-	{
-		printf("this i n_eat[%d] = %d bfr\n", l_inf.i - 1,l_inf.n_eat[l_inf.i - 1]);
 		l_inf.n_eat[l_inf.i - 1]++;
-		printf("this i n_eat[%d] = %d aft\n", l_inf.i - 1,l_inf.n_eat[l_inf.i - 1]);
-	}
 	pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1]));
 	ft_usleep(l_inf.t_eat, l_inf);
 	pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1]));
@@ -103,9 +99,9 @@ int	main(int ac, char **av)
 	i = 0;
 	if (ac < 5)
 		return (0);
-	if (!ft_init(&temp, av, ac))
+	t = malloc(sizeof(pthread_t) * ft_atoi(av[1]));
+	if (!ft_init(&temp, av, ac) || !t)
 		return (0);
-	t = malloc(sizeof(pthread_t) * temp.n_philo);
 	ft_f(&temp);
 	while (i < temp.n_philo)
 	{
