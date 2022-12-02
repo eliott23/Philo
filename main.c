@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/02 15:47:52 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/02 15:48:07 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,8 +107,6 @@ int	main(int ac, char **av)
 		return (0);
 	t = malloc(sizeof(pthread_t) * temp.n_philo);
 	ft_f(&temp);
-	//printf("checking %d and this is the address\
-	//%p\n",(temp.n_eat)[0],&(temp.n_eat)[0]);
 	while (i < temp.n_philo)
 	{
 		inf = malloc(sizeof(t_inf));
