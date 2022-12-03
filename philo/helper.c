@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:48:09 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/02 15:48:53 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/03 15:59:27 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	m_helper(t_inf temp, int i, int count)
 		if (temp.n_eat && (temp.n_eat)[i] >= temp.m_eat)
 			count++;
 		pthread_mutex_unlock(&(temp.death_mutex[i]));
-		if ((get_timestamp(temp.start) - l_meal) >= temp.t_die)
+		if ((get_timestamp(temp.start) - l_meal) >= \
+				temp.t_die && !*(temp.d_flag))
 		{
 			m_helper2(temp, i);
 			return (0);
@@ -94,8 +95,7 @@ int	ft_init(t_inf *temp, char **av, int ac)
 	temp->mutex = malloc(sizeof(pthread_mutex_t) * (temp->n_philo));
 	temp->death_mutex = malloc(sizeof(pthread_mutex_t) * (temp->n_philo));
 	temp->last_meal = malloc(sizeof(long long) * (temp->n_philo));
-	temp->d_flag = malloc(sizeof(int));
-	*(temp->d_flag) = 0;
+	temp->d_flag = malloc(sizeof(int) * (temp->n_philo));
 	if (!ft_p(temp, &i))
 		return (0);
 	while (i < temp->n_philo)
