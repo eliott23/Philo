@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:41:30 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/03 15:59:52 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/03 17:14:35 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,13 +30,13 @@ void	helper3(t_inf l_inf)
 	l_inf.last_meal[l_inf.i - 1] = get_timestamp(l_inf.start);
 	if (l_inf.n_eat)
 		l_inf.n_eat[l_inf.i - 1]++;
-	pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1]));
 	l_inf.d_flag[l_inf.i - 1] = 1;
+	pthread_mutex_unlock(&(l_inf.death_mutex[l_inf.i - 1]));
 	ft_usleep(l_inf.t_eat, l_inf);
-	l_inf.d_flag[l_inf.i - 1] = 0;
 	pthread_mutex_unlock(&(l_inf.mutex[l_inf.my_frk]));
 	pthread_mutex_unlock(&(l_inf.mutex[l_inf.othr_frk]));
 	pthread_mutex_lock(&(l_inf.death_mutex[l_inf.i - 1]));
+	l_inf.d_flag[l_inf.i - 1] = 0;
 	printf("%lld %d is sleeping\n", \
 	get_timestamp(l_inf.start), l_inf.i);
 }
@@ -54,7 +54,6 @@ int	helper2(t_inf l_inf)
 	if (l_inf.n_philo == 1)
 	{
 		ft_usleep(l_inf.t_die, l_inf);
-		*(l_inf.d_flag) = l_inf.i;
 		return (0);
 	}
 	return (1);
