@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:48:09 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/07 13:51:28 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/07 15:20:51 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	m_helper(t_inf temp, int i, int count)
 		if (temp.n_eat && (temp.n_eat)[i] >= temp.m_eat)
 			count++;
 		if ((get_timestamp(temp.start) - l_meal) >= \
-				temp.t_die && !*(temp.d_flag))
+				temp.t_die && !(temp.d_flag[i]))
 		{
 			ft_h(temp, i);
 			return (0);
