@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/29 20:51:25 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/02 16:00:04 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/07 13:32:34 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,10 @@ int	ft_p(t_inf *inf, int *i)
 			!(inf->death_mutex) && !(inf->last_meal) && !(inf->d_flag))
 		return (0);
 	return (1);
+}
+
+void	ft_h(t_inf temp, int i)
+{
+	pthread_mutex_unlock(&(temp.death_mutex[i]));
+	m_helper2(temp, i);
 }

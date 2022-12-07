@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:59:51 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/02 16:00:29 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/07 13:34:43 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,5 @@ long long		get_timestamp(struct timeval start);
 void			ft_usleep(long long v, t_inf inf);
 int				m_helper(t_inf temp, int i, int count);
 void			m_helper2(t_inf temp, int i);
+void			ft_h(t_inf temp, int i);
 #endif
