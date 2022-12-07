@@ -6,7 +6,7 @@
 /*   By: aababach <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/26 17:48:09 by aababach          #+#    #+#             */
-/*   Updated: 2022/12/07 13:33:57 by aababach         ###   ########.fr       */
+/*   Updated: 2022/12/07 13:51:28 by aababach         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ int	ft_init(t_inf *temp, char **av, int ac)
 	temp->death_mutex = malloc(sizeof(pthread_mutex_t) * (temp->n_philo));
 	temp->last_meal = malloc(sizeof(long long) * (temp->n_philo));
 	temp->d_flag = malloc(sizeof(int) * (temp->n_philo));
+	h(temp, ac, av);
 	if (!ft_p(temp, &i))
 		return (0);
 	while (i < temp->n_philo)
@@ -104,6 +105,5 @@ int	ft_init(t_inf *temp, char **av, int ac)
 		pthread_mutex_init(&(temp->death_mutex[i]), NULL);
 		i++;
 	}
-	h(temp, ac, av);
 	return (1);
 }
